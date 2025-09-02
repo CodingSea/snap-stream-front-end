@@ -6,6 +6,7 @@ import LoginForm from "./components/LoginForm/LoginForm"
 import SignupForm from './components/SignupForm/SignupForm';
 import { jwtDecode } from 'jwt-decode'
 import TTT from "./components/test"
+import LogoutButton from './components/LogoutButton/LogoutButton';
 
 function App()
 {
@@ -31,6 +32,7 @@ function App()
   return (
     <>
       <Router>
+        { token ? <LogoutButton onLogout={handleLogout} /> : null }
         <Routes>
           <Route path="/login" element={ <LoginForm onLogin={ handleLogin } /> } />
           <Route path="/signup" element={ <SignupForm /> } />
