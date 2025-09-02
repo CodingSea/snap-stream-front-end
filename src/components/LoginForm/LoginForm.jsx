@@ -1,31 +1,32 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
-const LoginPage = () =>
+const LoginPage = ({onLogin}) =>
 {
     const [credentials, setCredentials] = useState({
         username: '',
         password: '',
     });
 
+    const navigate = useNavigate()
     async function handleSubmit(event)
     {
         event.preventDefault();
 
         try
         {
-            const res = await axios.post(`${ import.meta.env.VITE_BACKEND_URL }/login/`,
+            const res = await axios.post(`${ import.meta.env.VITE_BACKEND_URL }/auth/login/`,
                 {
                     username: credentials.username,
                     password: credentials.password
                 }
             );
 
-            localStorage.setItem('token', res.data.token);
-            onLogin(res.data.token);
-            Navigate('/home/');
+            localStorage.setItem('token', res.data.access);
+            onLogin(res.data.access);
+            navigate('/Home');
         }
         catch(error)
         {

@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import LoginForm from "./components/LoginForm/LoginForm"
 import SignupForm from './components/SignupForm/SignupForm';
 import { jwtDecode } from 'jwt-decode'
+import TTT from "./components/test"
 
 function App()
 {
@@ -12,6 +14,7 @@ function App()
   function handleLogin(newToken)
   {
     setToken(newToken);
+    console.log(newToken)
   }
 
   function handleLogout()
@@ -22,7 +25,7 @@ function App()
 
   if (token)
   {
-    const decodedToken = jwtDecode(token)
+    // const decodedToken = jwtDecode(token)
   }
 
   return (
@@ -31,6 +34,11 @@ function App()
         <Routes>
           <Route path="/login" element={ <LoginForm onLogin={ handleLogin } /> } />
           <Route path="/signup" element={ <SignupForm /> } />
+
+          <Route path='/Home' element={
+            <ProtectedRoute>
+              <TTT />
+            </ProtectedRoute> } />
         </Routes>
       </Router>
     </>
