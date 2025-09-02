@@ -1,0 +1,72 @@
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+
+
+const LoginPage = () =>
+{
+    const [credentials, setCredentials] = useState({
+        username: '',
+        password: '',
+    });
+
+    async function handleSubmit(event)
+    {
+        event.preventDefault();
+
+        try
+        {
+            const res = await axios.post(`${ import.meta.env.VITE_BACKEND_URL }/login/`,
+                {
+                    username: credentials.username,
+                    password: credentials.password
+                }
+            );
+
+            localStorage.setItem('token', res.data.token);
+            onLogin(res.data.token);
+            Navigate('/home/');
+        }
+        catch(error)
+        {
+            console.log(error);
+        }
+
+    }
+
+    return (
+        <>
+            <h1>Sign in</h1>
+
+            <form onSubmit={ handleSubmit }>
+                <div>
+                    <label>Username: </label>
+                    <input
+                        placeholder='Username'
+                        name='username'
+                        value={ credentials.username }
+                        onChange={ (e) => setCredentials({ ...credentials, username: e.target.value }) }
+                    />
+                </div>
+
+                <div>
+                    <label>Password: </label>
+                    <input
+                        placeholder='Password'
+                        name='password'
+                        value={ credentials.password }
+                        onChange={ (e) => setCredentials({ ...credentials, password: e.target.value }) }
+                    />
+                </div>
+
+                <br />
+
+                <div>
+                    <button type='submit'>Login</button>
+                </div>
+            </form>
+        </>
+    );
+};
+
+export default LoginPage;
