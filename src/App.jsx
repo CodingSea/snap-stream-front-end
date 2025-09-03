@@ -5,8 +5,8 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import LoginForm from "./components/LoginForm/LoginForm"
 import SignupForm from './components/SignupForm/SignupForm';
 import { jwtDecode } from 'jwt-decode'
-import TTT from "./components/test"
 import LogoutButton from './components/LogoutButton/LogoutButton';
+import SearchPage from './components/SearchPage/SearchPage';
 
 function App()
 {
@@ -32,14 +32,13 @@ function App()
   return (
     <>
       <Router>
-        { token ? <LogoutButton onLogout={handleLogout} /> : null }
         <Routes>
           <Route path="/login" element={ <LoginForm onLogin={ handleLogin } /> } />
           <Route path="/signup" element={ <SignupForm /> } />
 
           <Route path='/Home' element={
             <ProtectedRoute>
-              <TTT />
+              <SearchPage token={token} handleLogout={handleLogout} />
             </ProtectedRoute> } />
         </Routes>
       </Router>

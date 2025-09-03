@@ -1,0 +1,68 @@
+.main-container
+{
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.panel
+{
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    top: 0;
+    left: -200px;
+    background-color: #333;
+    color: white;
+    transition: left 0.3s;
+    padding: 15px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.panel.open
+{
+    left: 0;
+}
+
+.toggle-btn
+{
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    top: 20px;
+    left: 10px;
+    z-index: 10;
+
+    position: fixed;
+    transition: all 0.3s;
+}
+
+.toggle-btn.open
+{
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    left: 0;
+    transition: all 0.3s;
+}
+
+.panel-content
+{
+    display: none;
+}
+
+.panel-content.open
+{
+    display:  inline-block;
+}
+
+@media (prefers-color-scheme: light)
+{
+    .panel
+    {
+        background-color: white;
+        color: #333;
+    }
+}

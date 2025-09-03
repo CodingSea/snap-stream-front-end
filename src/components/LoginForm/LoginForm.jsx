@@ -55,6 +55,7 @@ const LoginPage = ({onLogin}) =>
                     <input
                         placeholder='Password'
                         name='password'
+                        type='password'
                         value={ credentials.password }
                         onChange={ (e) => setCredentials({ ...credentials, password: e.target.value }) }
                     />
