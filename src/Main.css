@@ -13,7 +13,7 @@
     left: -200px;
     background-color: #333;
     color: white;
-    transition: left 0.3s;
+    transition: left 0.3s ease;
     padding: 15px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
 }
@@ -32,10 +32,11 @@
     border: none;
     border-radius: 5px;
     top: 20px;
-    left: 10px;
     z-index: 10;
 
-    position: fixed;
+    position: relative;
+    float: right;
+    margin: 0 10px 0 10px;
     transition: all 0.3s;
 }
 
@@ -43,8 +44,8 @@
 {
     position: relative;
     text-align: center;
+    float: none;
     margin: 0 auto;
-    left: 0;
     transition: all 0.3s;
 }
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import "../../Main.css"
 import LogoutButton from '../LogoutButton/LogoutButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 function SidePanel({ token, handleLogout })
 {
@@ -14,7 +16,9 @@ function SidePanel({ token, handleLogout })
     return (
         <>
             <div className={ openPanel ? "panel open" : "panel" }>
-                <button class={ openPanel ? "toggle-btn open" : "toggle-btn" } onClick={ togglePanel }>Toggle</button>
+                <button class={ openPanel ? "toggle-btn open" : "toggle-btn" } onClick={ togglePanel }>
+                    <FontAwesomeIcon icon={faBars} />
+                </button>
 
                 <br />
                 <div className={ openPanel ? "panel-content open" : "panel-content" }>
