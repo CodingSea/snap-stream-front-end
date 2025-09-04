@@ -32,8 +32,6 @@ function PostForm()
         event.preventDefault()
         try
         {
-
-            console.log(formData.file)
             await axios.post(`${ import.meta.env.VITE_BACKEND_URL }/post/new/`,
                 {
                     file: formData.file,
