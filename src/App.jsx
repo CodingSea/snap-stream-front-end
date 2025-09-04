@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
@@ -7,6 +7,7 @@ import SignupForm from './components/SignupForm/SignupForm';
 import { jwtDecode } from 'jwt-decode'
 import LogoutButton from './components/LogoutButton/LogoutButton';
 import SearchPage from './components/SearchPage/SearchPage';
+import PostForm from './components/PostForm/PostForm';
 
 function App()
 {
@@ -15,7 +16,6 @@ function App()
   function handleLogin(newToken)
   {
     setToken(newToken);
-    console.log(newToken)
   }
 
   function handleLogout()
@@ -24,10 +24,13 @@ function App()
     localStorage.removeItem('token')
   }
 
-  if (token)
+  useEffect(() =>
   {
-    // const decodedToken = jwtDecode(token)
-  }
+    if (token)
+    {
+      
+    }
+  }, [])
 
   return (
     <>
@@ -36,10 +39,21 @@ function App()
           <Route path="/login" element={ <LoginForm onLogin={ handleLogin } /> } />
           <Route path="/signup" element={ <SignupForm /> } />
 
-          <Route path='/Home' element={
+          <Route path='/home' element={
             <ProtectedRoute>
-              <SearchPage token={token} handleLogout={handleLogout} />
+              <SearchPage token={ token } handleLogout={ handleLogout } />
             </ProtectedRoute> } />
+
+          <Route path='/search' element={
+            <ProtectedRoute>
+              <SearchPage token={ token } handleLogout={ handleLogout } />
+            </ProtectedRoute> } />
+
+          <Route path='/post/new' element={
+            <ProtectedRoute>
+              <PostForm />
+            </ProtectedRoute> } />
+
         </Routes>
       </Router>
     </>

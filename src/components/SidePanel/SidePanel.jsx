@@ -3,10 +3,13 @@ import "../../Main.css"
 import LogoutButton from '../LogoutButton/LogoutButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 function SidePanel({ token, handleLogout })
 {
     const [openPanel, setOpenPanel] = useState(false);
+
+    const navigate = useNavigate()
 
     function togglePanel()
     {
@@ -21,8 +24,11 @@ function SidePanel({ token, handleLogout })
                 </button>
 
                 <br />
+                
                 <div className={ openPanel ? "panel-content open" : "panel-content" }>
                     <h2>Panel</h2>
+
+                    <button onClick={() => { navigate("/search") }}>Search</button>
 
                     { token ? <LogoutButton onLogout={ handleLogout } /> : null }
                 </div>
