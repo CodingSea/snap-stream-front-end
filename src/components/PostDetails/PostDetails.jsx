@@ -2,11 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { href, useNavigate, useParams } from 'react-router-dom'
 import SidePanel from '../SidePanel/SidePanel';
+import { getPosts } from '../../../lib/postAPI';
 
 function PostDetails()
 {
     const { pk } = useParams();
-    const [post, setPost] = useState({})
     const navigate = useNavigate()
     const [posts, setPosts] = useState([{}])
     const [selectedIndex, setSelectedIndex] = useState();
@@ -15,11 +15,9 @@ function PostDetails()
     {
         try
         {
-            const postsList = await axios.get(`${ import.meta.env.VITE_BACKEND_URL }/search/`)
+            const postsList = await getPosts();
             setPosts(postsList.data);
-            console.log(pk)
-            setSelectedIndex(posts.findIndex(p => p.id === parseInt(pk)));
-            console.log(selectedIndex)
+            setSelectedIndex(postsList.data.findIndex(p => p.id === parseInt(pk)));
         }
         catch (error)
         {
@@ -30,32 +28,31 @@ function PostDetails()
     useEffect(() =>
     {
         listPosts();
-    }, [selectedIndex])
+    }, [])
 
 
     return (
         <>
             <SidePanel />
 
-            <button onClick={() => { navigate(-1) }}>Back</button>
-
-            <h1>Post Details</h1>
+            <button onClick={ () => { navigate(-1) } }>Back</button>
 
             {
-                posts.slice(selectedIndex).map((p, index) => 
-                {
-                    return (
-                        <>
-                            <div className='post-details' key={index}>
-                                <img src={ p.file } alt="post-file" />
-                                <p>{p.caption}</p>
-                                
-
+                selectedIndex != undefined ?
+                    posts.slice(selectedIndex).map((p, index) => 
+                    {
+                        return (
+                            <div key={index}>
+                                <div className='post-details'>
+                                    <img src={ p.file } alt="post-file" />
+                                    <p>{ p.caption }</p>
+                                </div>
+                                { p != posts.slice(selectedIndex).at(-1) ? <hr /> : null }
                             </div>
-                            { p != posts.slice(selectedIndex).at(-1) ? <hr /> : null }
-                        </>
-                    )
-                })
+                        )
+                    })
+                    :
+                    null
             }
         </>
     )

@@ -19,7 +19,7 @@ function SidePanel({ token, handleLogout })
     return (
         <>
             <div className={ openPanel ? "panel open" : "panel" }>
-                <button class={ openPanel ? "toggle-btn open" : "toggle-btn" } onClick={ togglePanel }>
+                <button className={ openPanel ? "toggle-btn open" : "toggle-btn" } onClick={ togglePanel }>
                     <FontAwesomeIcon icon={faBars} />
                 </button>
 

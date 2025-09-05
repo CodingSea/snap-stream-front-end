@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { loginUser } from '../../../lib/userAPI';
 
 const LoginPage = ({onLogin}) =>
 {
@@ -17,12 +17,7 @@ const LoginPage = ({onLogin}) =>
 
         try
         {
-            const res = await axios.post(`${ import.meta.env.VITE_BACKEND_URL }/auth/login/`,
-                {
-                    username: credentials.username,
-                    password: credentials.password
-                }
-            );
+            const res = await loginUser(credentials);
 
             localStorage.setItem('token', res.data.access);
             onLogin(res.data.access);

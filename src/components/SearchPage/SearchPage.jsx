@@ -47,9 +47,7 @@ function SearchPage({ token, handleLogout })
                     posts.map((post, index) => 
                     {
                         return (
-                            <>
-                                <a key={ index } onClick={() => { handlePost(post) }}><img src={ post.file } alt="post file" className="post-card" /></a>
-                            </>
+                            <a key={ index } onClick={() => { handlePost(post) }}><img src={ post.file } alt="post file" className="post-card" /></a>
                         )
                     })
                 }
