@@ -5,10 +5,10 @@ import axios from 'axios'
 import "../../Main.css"
 import PostDetails from '../PostDetails/PostDetails'
 
-function SearchPage({ token, handleLogout, posts, setPosts })
+function SearchPage({ token, handleLogout })
 {
     const navigate = useNavigate()
-    
+    const [posts, setPosts] = useState([{}])
 
     async function listPosts()
     {

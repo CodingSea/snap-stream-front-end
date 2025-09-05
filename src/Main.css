@@ -36,7 +36,6 @@
     top: 20px;
     z-index: 10;
 
-    position: relative;
     float: right;
     margin: 0 10px 0 10px;
     transition: all 0.3s;
@@ -46,7 +45,6 @@
 
 .toggle-btn.open
 {
-    position: relative;
     text-align: center;
     float: none;
     margin: 0 auto;

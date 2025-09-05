@@ -13,7 +13,6 @@ import PostDetails from './components/PostDetails/PostDetails';
 function App()
 {
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [posts, setPosts] = useState([{}])
 
   function handleLogin(newToken)
   {
@@ -48,7 +47,7 @@ function App()
 
           <Route path='/search' element={
             <ProtectedRoute>
-              <SearchPage token={ token } handleLogout={ handleLogout } posts={posts} setPosts={setPosts} />
+              <SearchPage token={ token } handleLogout={ handleLogout } />
             </ProtectedRoute> } />
 
           <Route path='/post/new' element={
@@ -58,7 +57,7 @@ function App()
 
             <Route path='/search/:pk' element={
             <ProtectedRoute>
-              <PostDetails posts={posts} setPosts={setPosts} />
+              <PostDetails />
             </ProtectedRoute> } />
 
         </Routes>

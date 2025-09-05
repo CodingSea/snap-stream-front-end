@@ -1,50 +1,58 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { href, useNavigate, useParams } from 'react-router-dom'
 import SidePanel from '../SidePanel/SidePanel';
 
-function PostDetails({ posts, setPosts })
+function PostDetails()
 {
     const { pk } = useParams();
     const [post, setPost] = useState({})
+    const navigate = useNavigate()
+    const [posts, setPosts] = useState([{}])
+    const [selectedIndex, setSelectedIndex] = useState();
 
-    async function getPost()
+    async function listPosts()
     {
         try
         {
-            const res = await axios.get(`${ import.meta.env.VITE_BACKEND_URL }/search/${pk}`)
-            setPost(res.data)
+            const postsList = await axios.get(`${ import.meta.env.VITE_BACKEND_URL }/search/`)
+            setPosts(postsList.data);
+            console.log(pk)
+            setSelectedIndex(posts.findIndex(p => p.id === parseInt(pk)));
+            console.log(selectedIndex)
         }
-        catch(error)
+        catch (error)
         {
-            console.log(error)
+            console.log(error);
         }
     }
 
     useEffect(() =>
     {
-        getPost();
-    }, [])
+        listPosts();
+    }, [selectedIndex])
 
-    const selectedIndex = posts.findIndex(p => p.id === post.id);
 
     return (
         <>
             <SidePanel />
 
+            <button onClick={() => { navigate(-1) }}>Back</button>
+
             <h1>Post Details</h1>
+
             {
                 posts.slice(selectedIndex).map((p, index) => 
                 {
                     return (
                         <>
-                            <div className='post-details'>
+                            <div className='post-details' key={index}>
                                 <img src={ p.file } alt="post-file" />
                                 <p>{p.caption}</p>
                                 
 
                             </div>
-                            <hr />
+                            { p != posts.slice(selectedIndex).at(-1) ? <hr /> : null }
                         </>
                     )
                 })
