@@ -3,16 +3,19 @@ import SidePanel from '../SidePanel/SidePanel'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import "../../Main.css"
+import PostDetails from '../PostDetails/PostDetails'
 
-function SearchPage({ token, handleLogout })
+function SearchPage({ token, handleLogout, posts, setPosts })
 {
     const navigate = useNavigate()
-    const [posts, setPosts] = useState([{}])
+    
 
     async function listPosts()
     {
         try
         {
+            // const token = localStorage.getItem("token")
+            // const postsList = await axios.get(`${ import.meta.env.VITE_BACKEND_URL }/search/`, { headers: {Authorization: `Bearer ${ token }`} });
             const postsList = await axios.get(`${ import.meta.env.VITE_BACKEND_URL }/search/`)
             setPosts(postsList.data);
         }
@@ -20,6 +23,11 @@ function SearchPage({ token, handleLogout })
         {
             console.log(error);
         }
+    }
+
+    function handlePost(post)
+    {
+        navigate(`/search/${post.id}`)
     }
 
     useEffect(() =>
@@ -39,7 +47,9 @@ function SearchPage({ token, handleLogout })
                     posts.map((post, index) => 
                     {
                         return (
-                            <img src={ post.file } alt="post file" key={ index } className="post-card" />
+                            <>
+                                <a key={ index } onClick={() => { handlePost(post) }}><img src={ post.file } alt="post file" className="post-card" /></a>
+                            </>
                         )
                     })
                 }

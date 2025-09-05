@@ -87,6 +87,23 @@
     scale: 1.1;
 }
 
+.post-details
+{
+    background-color: #333;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.post-details p
+{
+    text-align: left;
+}
+
+.post-details img
+{
+    width: 700px;
+}
+
 @media (prefers-color-scheme: light)
 {
     .panel

@@ -8,10 +8,12 @@ import { jwtDecode } from 'jwt-decode'
 import LogoutButton from './components/LogoutButton/LogoutButton';
 import SearchPage from './components/SearchPage/SearchPage';
 import PostForm from './components/PostForm/PostForm';
+import PostDetails from './components/PostDetails/PostDetails';
 
 function App()
 {
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [posts, setPosts] = useState([{}])
 
   function handleLogin(newToken)
   {
@@ -46,12 +48,17 @@ function App()
 
           <Route path='/search' element={
             <ProtectedRoute>
-              <SearchPage token={ token } handleLogout={ handleLogout } />
+              <SearchPage token={ token } handleLogout={ handleLogout } posts={posts} setPosts={setPosts} />
             </ProtectedRoute> } />
 
           <Route path='/post/new' element={
             <ProtectedRoute>
               <PostForm />
+            </ProtectedRoute> } />
+
+            <Route path='/search/:pk' element={
+            <ProtectedRoute>
+              <PostDetails posts={posts} setPosts={setPosts} />
             </ProtectedRoute> } />
 
         </Routes>
