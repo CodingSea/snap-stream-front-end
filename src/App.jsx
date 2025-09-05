@@ -9,6 +9,8 @@ import LogoutButton from './components/LogoutButton/LogoutButton';
 import SearchPage from './components/SearchPage/SearchPage';
 import PostForm from './components/PostForm/PostForm';
 import PostDetails from './components/PostDetails/PostDetails';
+import PostsDisplay from './components/PostsDisplay/PostsDisplay';
+import SidePanel from './components/SidePanel/SidePanel';
 
 function App()
 {
@@ -40,23 +42,21 @@ function App()
           <Route path="/login" element={ <LoginForm onLogin={ handleLogin } /> } />
           <Route path="/signup" element={ <SignupForm /> } />
 
-          <Route path='/home' element={
+          <Route path='/:displayType' element={
             <ProtectedRoute>
-              <SearchPage token={ token } handleLogout={ handleLogout } />
-            </ProtectedRoute> } />
-
-          <Route path='/search' element={
-            <ProtectedRoute>
-              <SearchPage token={ token } handleLogout={ handleLogout } />
+              <SidePanel token={ token } handleLogout={ handleLogout } />
+              <PostsDisplay />
             </ProtectedRoute> } />
 
           <Route path='/post/new' element={
             <ProtectedRoute>
+              <SidePanel token={ token } handleLogout={ handleLogout } />
               <PostForm />
             </ProtectedRoute> } />
 
             <Route path='/search/:pk' element={
             <ProtectedRoute>
+              <SidePanel token={ token } handleLogout={ handleLogout } />
               <PostDetails />
             </ProtectedRoute> } />
 

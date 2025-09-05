@@ -5,7 +5,7 @@ import axios from 'axios'
 import "../../Main.css"
 import PostDetails from '../PostDetails/PostDetails'
 
-function SearchPage({ token, handleLogout })
+function SearchPage()
 {
     const navigate = useNavigate()
     const [posts, setPosts] = useState([{}])
@@ -37,8 +37,6 @@ function SearchPage({ token, handleLogout })
 
     return (
         <>
-            <SidePanel token={ token } handleLogout={ handleLogout } />
-
             <h1>Search Page</h1>
             <button onClick={ () => { navigate('/post/new') } }>+</button>
 

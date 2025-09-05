@@ -33,8 +33,6 @@ function PostDetails()
 
     return (
         <>
-            <SidePanel />
-
             <button onClick={ () => { navigate(-1) } }>Back</button>
 
             {
