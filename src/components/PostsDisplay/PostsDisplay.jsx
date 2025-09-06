@@ -19,7 +19,9 @@ function PostsDisplay({ token, handleLogout, user, setUser })
 
     useEffect(() =>
     {
+        if(!receivedData) return;
         const displayType = receivedData.displayType;
+
         
         if (displayType == "Profile")
         {
@@ -33,6 +35,8 @@ function PostsDisplay({ token, handleLogout, user, setUser })
         {
             setCurrentDisplay(DisplayType.Home);
         }
+
+        window.history.replaceState({}, '')
     }, [])
 
     return (

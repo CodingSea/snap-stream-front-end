@@ -35,7 +35,7 @@ function PostDetails()
 
     return (
         <>
-            <button onClick={ () => { navigate(-1) } }>Back</button>
+            <button onClick={ () => { navigate(-1, { replace: true, state: { displayType: "dddd" } }) } }>Back</button>
 
             {
                 selectedIndex != undefined ?
