@@ -15,6 +15,12 @@ import SidePanel from './components/SidePanel/SidePanel';
 function App()
 {
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [user, setUser] = useState(
+    {
+      id: -1,
+      username: ""
+    }
+  )
 
   function handleLogin(newToken)
   {
@@ -31,7 +37,7 @@ function App()
   {
     if (token)
     {
-      
+
     }
   }, [])
 
@@ -42,21 +48,20 @@ function App()
           <Route path="/login" element={ <LoginForm onLogin={ handleLogin } /> } />
           <Route path="/signup" element={ <SignupForm /> } />
 
-          <Route path='/:displayType' element={
+          <Route path='/snap-stream' element={
             <ProtectedRoute>
-              <SidePanel token={ token } handleLogout={ handleLogout } />
-              <PostsDisplay />
+              <PostsDisplay token={ token } handleLogout={ handleLogout } user={user} setUser={setUser} />
             </ProtectedRoute> } />
 
           <Route path='/post/new' element={
             <ProtectedRoute>
-              <SidePanel token={ token } handleLogout={ handleLogout } />
+              <SidePanel token={ token } handleLogout={ handleLogout } user={user} setUser={setUser} />
               <PostForm />
             </ProtectedRoute> } />
 
-            <Route path='/search/:pk' element={
+          <Route path='/search/:pk' element={
             <ProtectedRoute>
-              <SidePanel token={ token } handleLogout={ handleLogout } />
+              <SidePanel token={ token } handleLogout={ handleLogout } user={user} setUser={setUser} />
               <PostDetails />
             </ProtectedRoute> } />
 

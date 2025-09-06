@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "../../Main.css"
 import LogoutButton from '../LogoutButton/LogoutButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { getUser } from '../../../lib/userAPI';
 
-function SidePanel({ token, handleLogout })
+function SidePanel({ token, handleLogout, setCurrentDisplay, DisplayType, user, setUser })
 {
     const [openPanel, setOpenPanel] = useState(false);
 
@@ -16,21 +17,60 @@ function SidePanel({ token, handleLogout })
         setOpenPanel(!openPanel);
     }
 
+    async function getCurrentUser()
+    {
+        try
+        {
+            const res = await getUser()
+            const usr =
+            {
+                id: res.data.user_id,
+                username: res.data.username
+            }
+
+            setUser(usr);
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+    }
+
+    useEffect(() =>
+    {
+        if (user)
+        {
+            getCurrentUser();
+        }
+    }, [])
+
     return (
         <>
             <div className={ openPanel ? "panel open" : "panel" }>
                 <button className={ openPanel ? "toggle-btn open" : "toggle-btn" } onClick={ togglePanel }>
-                    <FontAwesomeIcon icon={faBars} />
+                    <FontAwesomeIcon icon={ faBars } />
                 </button>
 
-                <br />
-                
                 <div className={ openPanel ? "panel-content open" : "panel-content" }>
-                    <h2>Panel</h2>
+                    { user ? <h2>{ user.username }</h2> : null }
 
-                    <button onClick={() => { navigate("/home") }}>Home</button>
-                    <button onClick={() => { navigate("/search") }}>Search</button>
-                    <button onClick={() => { navigate("/profile") }}>Profile</button>
+                    {
+                        window.location.href == `${ import.meta.env.VITE_FRONTEND_URL }/snap-stream`
+                            ?
+                            <>
+                                <button onClick={ () => { setCurrentDisplay(DisplayType.Home) } }>Home</button>
+                                <button onClick={ () => { setCurrentDisplay(DisplayType.Search) } }>Search</button>
+                                <button onClick={ () => { setCurrentDisplay(DisplayType.Profile) } }>Profile</button>
+                            </>
+                            :
+                            <>
+                                <button onClick={ () => { navigate("/snap-stream", { state: { displayType: "Home" } }) } }>Home</button>
+                                <button onClick={ () => { navigate("/snap-stream", { state: { displayType: "Search" } }) } }>Search</button>
+                                <button onClick={ () => { navigate("/snap-stream", { state: { displayType: "Profile" } }) } }>Profile</button>
+                            </>
+                    }
+
+
 
                     { token ? <LogoutButton onLogout={ handleLogout } /> : null }
                 </div>

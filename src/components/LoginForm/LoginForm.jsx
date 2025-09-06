@@ -21,7 +21,7 @@ const LoginPage = ({onLogin}) =>
 
             localStorage.setItem('token', res.data.access);
             onLogin(res.data.access);
-            navigate('/home');
+            navigate('/snap-stream');
         }
         catch(error)
         {
