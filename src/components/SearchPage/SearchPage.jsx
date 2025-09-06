@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import "../../Main.css"
 import PostDetails from '../PostDetails/PostDetails'
+import { getPosts } from '../../../lib/postAPI'
 
 function SearchPage()
 {
@@ -14,9 +15,7 @@ function SearchPage()
     {
         try
         {
-            // const token = localStorage.getItem("token")
-            // const postsList = await axios.get(`${ import.meta.env.VITE_BACKEND_URL }/search/`, { headers: {Authorization: `Bearer ${ token }`} });
-            const postsList = await axios.get(`${ import.meta.env.VITE_BACKEND_URL }/search/`)
+            const postsList = await getPosts();
             setPosts(postsList.data);
         }
         catch (error)
@@ -45,7 +44,7 @@ function SearchPage()
                     posts.map((post, index) => 
                     {
                         return (
-                            <a key={ index } onClick={() => { handlePost(post) }}><img src={ post.file } alt="post file" className="post-card" /></a>
+                            <a key={ index } onClick={() => { handlePost(post) }}><img src={ post.file } alt="post-file" className="post-card" /></a>
                         )
                     })
                 }

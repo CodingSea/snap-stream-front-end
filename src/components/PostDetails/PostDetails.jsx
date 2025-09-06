@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { href, useNavigate, useParams } from 'react-router-dom'
 import SidePanel from '../SidePanel/SidePanel';
 import { getPosts } from '../../../lib/postAPI';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
 
 function PostDetails()
 {
@@ -37,15 +39,33 @@ function PostDetails()
 
             {
                 selectedIndex != undefined ?
-                    posts.slice(selectedIndex).map((p, index) => 
+                    posts.slice(selectedIndex).map((post, index) => 
                     {
                         return (
-                            <div key={index}>
+                            <div key={ index }>
                                 <div className='post-details'>
-                                    <img src={ p.file } alt="post-file" />
-                                    <p>{ p.caption }</p>
+
+                                    <a onClick={ () => { navigate(`/profile`) } }><h2>{ posts[0].user.username }</h2></a>
+
+                                    <img src={ post.file } alt="post-file" />
+
+                                    <br />
+                                    <div style={ { display: "flex", gap: "1em" } }>
+                                        <div style={ { display: "flex", alignItems: "center" } }>
+                                            <FontAwesomeIcon icon={ faHeart } className='icon' />
+                                            <p>000</p>
+                                        </div>
+                                        <div style={ { display: "flex", alignItems: "center" } }>
+                                            <FontAwesomeIcon icon={ faComment } className='icon' />
+                                            <p>000</p>
+                                        </div>
+                                    </div>
+                                    <p>{ post.caption }</p>
+
+                                    <p><span>{ `${ new Date(post.created_at).toLocaleDateString() } | ${ new Date(post.created_at).toLocaleTimeString() }` }</span></p>
+
                                 </div>
-                                { p != posts.slice(selectedIndex).at(-1) ? <hr /> : null }
+                                { post != posts.slice(selectedIndex).at(-1) ? <hr /> : null }
                             </div>
                         )
                     })

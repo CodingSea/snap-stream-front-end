@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import SidePanel from '../SidePanel/SidePanel'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
+import { createPost } from '../../../lib/postAPI'
 
 function PostForm()
 {
@@ -32,20 +33,7 @@ function PostForm()
         event.preventDefault()
         try
         {
-            await axios.post(`${ import.meta.env.VITE_BACKEND_URL }/post/new/`,
-                {
-                    file: formData.file,
-                    caption: formData.caption,
-                    user: parseInt(formData.user),
-                    file_id: ""
-                },
-                {
-                    headers:
-                    {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-            )
+            await createPost(formData);
 
             navigate('/search')
         } catch (error)
@@ -63,7 +51,7 @@ function PostForm()
 
     return (
         <>
-            <SidePanel />
+            <button onClick={ () => { navigate(-1) } }>Back</button>
 
             <form onSubmit={ handleSubmit }>
                 <h2>Sign Up</h2>
@@ -74,6 +62,8 @@ function PostForm()
                     onChange={ handleFileChange }
                 />
 
+                <br />
+
                 <label htmlFor="caption">Caption: </label>
                 <input
                     name='caption'
@@ -82,6 +72,9 @@ function PostForm()
                     value={ formData.caption }
                     onChange={ handleChange }
                 />
+
+                <br />
+
                 <button type="submit">Post</button>
             </form>
         </>

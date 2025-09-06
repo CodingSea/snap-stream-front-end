@@ -90,16 +90,35 @@
     background-color: #333;
     padding: 1em;
     border-radius: 1em;
+    text-align: left;
 }
 
-.post-details p
+.post-details a
 {
-    text-align: left;
+    color: white;
+}
+
+.post-details span
+{
+    color: gray;
+    font-size: small;
+}
+
+.post-details a:hover
+{
+    color: #007BFF;
+    cursor: pointer;
 }
 
 .post-details img
 {
     width: 700px;
+}
+
+.icon:hover
+{
+    color: gray;
+    cursor: pointer;
 }
 
 @media (prefers-color-scheme: light)

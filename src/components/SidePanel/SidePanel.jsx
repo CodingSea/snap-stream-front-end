@@ -28,9 +28,9 @@ function SidePanel({ token, handleLogout })
                 <div className={ openPanel ? "panel-content open" : "panel-content" }>
                     <h2>Panel</h2>
 
-                    <button onClick={() => { navigate("/profile") }}>Profile</button>
-                    <button onClick={() => { navigate("/search") }}>Search</button>
                     <button onClick={() => { navigate("/home") }}>Home</button>
+                    <button onClick={() => { navigate("/search") }}>Search</button>
+                    <button onClick={() => { navigate("/profile") }}>Profile</button>
 
                     { token ? <LogoutButton onLogout={ handleLogout } /> : null }
                 </div>
