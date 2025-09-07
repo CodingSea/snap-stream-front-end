@@ -35,7 +35,7 @@ function PostForm()
         {
             await createPost(formData);
 
-            navigate('/search')
+            navigate('/snap-stream')
         } catch (error)
         {
             console.log(error)
@@ -65,10 +65,9 @@ function PostForm()
                 <br />
 
                 <label htmlFor="caption">Caption: </label>
-                <input
+                <textarea
                     name='caption'
                     placeholder="caption"
-                    type="text"
                     value={ formData.caption }
                     onChange={ handleChange }
                 />

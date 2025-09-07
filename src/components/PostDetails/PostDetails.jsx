@@ -2,9 +2,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { href, useNavigate, useParams } from 'react-router-dom'
 import SidePanel from '../SidePanel/SidePanel';
-import { getPosts } from '../../../lib/postAPI';
+import { deletePost, getPosts } from '../../../lib/postAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faComment, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import Popup from 'reactjs-popup';
 
 function PostDetails()
 {
@@ -12,6 +13,8 @@ function PostDetails()
     const navigate = useNavigate()
     const [posts, setPosts] = useState([{}])
     const [selectedIndex, setSelectedIndex] = useState();
+
+    const [isOpen, setIsOpen] = useState(false);
 
     async function listPosts()
     {
@@ -32,6 +35,21 @@ function PostDetails()
         listPosts();
     }, [])
 
+    async function handleDeletePost(event, post)
+    {
+        try
+        {
+            event.preventDefault();
+
+            await deletePost(post.id);
+
+            navigate(-1);
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -45,7 +63,21 @@ function PostDetails()
                             <div key={ index }>
                                 <div className='post-details'>
 
-                                    <a onClick={ () => { navigate(`/profile`) } }><h2>{ posts[0].user.username }</h2></a>
+                                    <div style={ { display: "flex", justifyContent: "space-between", alignItems: "center" } }>
+                                        <a onClick={ () => { navigate(`/profile/${ post.user.id }`) } }><h2>{ posts[0].user.username }</h2></a>
+
+                                        <FontAwesomeIcon icon={ faEllipsis } style={ { fontSize: "2em" } } className='icon' onClick={ () => { setIsOpen(!isOpen) } } />
+
+                                        <Popup open={ isOpen } position={ 'center center' }>
+                                            <div className='post-popup'>
+                                                <p>Post Form</p>
+                                                <button>Edit</button>
+                                                <form onSubmit={ (event) => handleDeletePost(event, post) }>
+                                                    <button type='submit'>Delete</button>
+                                                </form>
+                                            </div>
+                                        </Popup>
+                                    </div>
 
                                     <img src={ post.file } alt="post-file" />
 
