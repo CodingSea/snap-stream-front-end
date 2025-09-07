@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
 import { getUser } from '../../../lib/userAPI';
+import { RingLoader } from 'react-spinners';
 
 function PostDetails()
 {
@@ -230,7 +231,7 @@ function PostDetails()
                         )
                     })
                     :
-                    null
+                    <RingLoader color='#007BFF' />
             }
         </>
     )

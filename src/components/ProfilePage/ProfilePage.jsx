@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { getProfile } from '../../../lib/postAPI';
 import { useNavigate, useParams } from 'react-router-dom';
+import { RingLoader } from 'react-spinners';
 
 function ProfilePage()
 {
     const navigate = useNavigate()
-    const [posts, setPosts] = useState([{}])
+    const [posts, setPosts] = useState([])
 
     const [user, setUser] = useState(
         {
@@ -65,12 +66,16 @@ function ProfilePage()
 
             <div className='posts-container'>
                 {
+                    posts.length > 0
+                    ?
                     posts.map((post, index) => 
                     {
                         return (
                             <a key={ index } id={ index } onClick={ () => { handlePost(index) } }><img src={ post.file } alt="post-file" className="post-card" /></a>
                         )
                     })
+                    :
+                    <RingLoader color='#007BFF' />
                 }
             </div>
         </>

@@ -5,11 +5,12 @@ import axios from 'axios'
 import "../../Main.css"
 import PostDetails from '../PostDetails/PostDetails'
 import { getPosts } from '../../../lib/postAPI'
+import { RingLoader } from 'react-spinners'
 
 function SearchPage()
 {
     const navigate = useNavigate()
-    const [posts, setPosts] = useState([{}])
+    const [posts, setPosts] = useState([])
 
     async function listPosts()
     {
@@ -41,12 +42,16 @@ function SearchPage()
 
             <div className='posts-container'>
                 {
+                    posts.length > 0
+                    ?
                     posts.map((post, index) => 
                     {
                         return (
                             <a key={ index } id={ index } onClick={ () => { handlePost(index) } }><img src={ post.file } alt="post-file" className="post-card" /></a>
                         )
                     })
+                    :
+                    <RingLoader color='#007BFF' />
                 }
             </div>
 
