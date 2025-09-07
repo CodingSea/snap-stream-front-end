@@ -13,6 +13,7 @@ import PostsDisplay from './components/PostsDisplay/PostsDisplay';
 import SidePanel from './components/SidePanel/SidePanel';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import { getUser } from '../lib/userAPI';
+import HomePage from './components/HomePage/HomePage';
 
 function App()
 {
@@ -72,13 +73,19 @@ function App()
           <Route path='/search' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
-              <SearchPage token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              <SearchPage />
             </ProtectedRoute> } />
 
             <Route path='/profile/:id' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
-              <ProfilePage token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              <ProfilePage />
+            </ProtectedRoute> } />
+
+            <Route path='/home/:id' element={
+            <ProtectedRoute>
+              <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              <HomePage token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
             </ProtectedRoute> } />
 
           <Route path='/post/new' element={

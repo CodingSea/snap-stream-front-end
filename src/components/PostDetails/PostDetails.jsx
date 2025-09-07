@@ -8,6 +8,7 @@ import { faHeart, faComment, faEllipsis } from '@fortawesome/free-solid-svg-icon
 import Popup from 'reactjs-popup';
 import { getUser } from '../../../lib/userAPI';
 import { RingLoader } from 'react-spinners';
+import Post from '../Post/Post';
 
 function PostDetails()
 {
@@ -21,10 +22,7 @@ function PostDetails()
             username: ""
         }
     )
-    let [promises, setPromises] = useState(null);
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [isOpenEdit, setIsOpenEdit] = useState(false);
 
     const [formData, setFormData] = useState
         (
@@ -38,10 +36,7 @@ function PostDetails()
             }
         )
 
-    function handleChange(event)
-    {
-        setFormData({ ...formData, [event.target.name]: event.target.value })
-    }
+
 
     async function listPosts()
     {
@@ -88,52 +83,6 @@ function PostDetails()
         }
     }
 
-    async function handleDeletePost(event, post)
-    {
-        try
-        {
-            event.preventDefault();
-
-            await deletePost(post.id);
-
-            navigate(-1);
-        }
-        catch (error)
-        {
-            console.log(error);
-        }
-    }
-
-    async function handleSubmit(event)
-    {
-        try
-        {
-            event.preventDefault();
-
-            await updatePost(formData.id, formData)
-
-            listPosts();
-
-        } catch (error)
-        {
-            console.log(error)
-        }
-    }
-
-    function selectPost(post)
-    {
-        const p =
-        {
-            id: post.id,
-            caption: post.caption,
-            file: post.file,
-            file_id: post.file_id,
-            user: post.user.id,
-            created_at: post.created_at
-        }
-
-        setFormData(p);
-    }
 
     useEffect(() =>
     {
@@ -141,15 +90,6 @@ function PostDetails()
         getCurrentUser();
 
     }, [])
-
-    useEffect(() =>
-    {
-        const targetElement = document.getElementById(parseInt(postId));
-        if (targetElement)
-        {
-            targetElement.scrollIntoView();
-        }
-    }, [posts])
 
     return (
         <>
@@ -159,75 +99,7 @@ function PostDetails()
                     posts.map((post, index) => 
                     {
                         return (
-                            <div key={ index } id={ index }>
-                                <div className='post-details'>
-
-                                    <div style={ { display: "flex", justifyContent: "space-between", alignItems: "center" } }>
-                                        <a onClick={ () => { navigate(`/profile/${ post.user.id }`, { replace: true, state: { displayType: "Profile" } }) } }>
-                                            <h2>{ posts[0].user.username }</h2>
-                                        </a>
-
-
-
-                                        {
-                                            user.id == post.user.id
-                                                ?
-                                                <FontAwesomeIcon icon={ faEllipsis } style={ { fontSize: "2em" } } className='icon' onClick={ () => { selectPost(post);; setIsOpen(!isOpen) } } />
-                                                :
-                                                null
-                                        }
-
-                                        <Popup open={ isOpen } position={ 'center center' }>
-                                            <div className='post-popup'>
-                                                <p>Post Form</p>
-
-                                                <button onClick={ () => { setIsOpenEdit(!isOpenEdit); setIsOpen(false); } }>Edit</button>
-
-                                                <form onSubmit={ (event) => handleDeletePost(event, post) }>
-                                                    <button type='submit'>Delete</button>
-                                                </form>
-                                            </div>
-                                        </Popup>
-
-                                        <Popup open={ isOpenEdit } position={ "center center" }>
-                                            <form onSubmit={ (event) => handleSubmit(event) }>
-                                                <h2>Edit Post</h2>
-
-                                                <label htmlFor="caption">Caption: </label>
-                                                <textarea
-                                                    name='caption'
-                                                    placeholder="caption"
-                                                    value={ formData.caption }
-                                                    onChange={ handleChange }
-                                                />
-
-                                                <br />
-
-                                                <button type="submit">Post</button>
-                                            </form>
-                                        </Popup>
-                                    </div>
-
-                                    <img src={ post.file } alt="post-file" />
-
-                                    <br />
-                                    <div style={ { display: "flex", gap: "1em" } }>
-                                        <div style={ { display: "flex", alignItems: "center" } }>
-                                            <FontAwesomeIcon icon={ faHeart } className='icon' />
-                                            <p>000</p>
-                                        </div>
-                                        <div style={ { display: "flex", alignItems: "center" } }>
-                                            <FontAwesomeIcon icon={ faComment } className='icon' />
-                                            <p>000</p>
-                                        </div>
-                                    </div>
-                                    <p>{ post.caption }</p>
-
-                                    <p><span>{ `${ new Date(post.created_at).toLocaleDateString() } | ${ new Date(post.created_at).toLocaleTimeString() }` }</span></p>
-
-                                </div>
-                                { post != posts.slice(selectedIndex).at(-1) ? <hr /> : null }
-                            </div >
+                            <Post post={ post } index={ index } key={ index } posts={posts} user={user} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} postId={postId} listPosts={listPosts} />
                         )
                     })
                     :

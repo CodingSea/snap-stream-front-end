@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { getProfile } from '../../../lib/postAPI';
-import { useNavigate, useParams } from 'react-router-dom';
-import { RingLoader } from 'react-spinners';
+import React from 'react'
 
-function ProfilePage()
+function HomePage()
 {
     const navigate = useNavigate()
     const [posts, setPosts] = useState([])
@@ -32,7 +29,7 @@ function ProfilePage()
 
     function handlePost(index)
     {
-        navigate(`/profile/${ id }/post/${ index }`)
+        navigate(`/home/${ id }/post/${ index }`)
     }
 
     useEffect(() =>
@@ -42,25 +39,25 @@ function ProfilePage()
 
     return (
         <>
-            <h1>Profile Page</h1>
+            <h1>Home Page</h1>
             <button onClick={ () => { navigate('/post/new') } }>+</button>
 
             <div className='posts-container'>
                 {
                     posts.length > 0
-                    ?
-                    posts.map((post, index) => 
-                    {
-                        return (
-                            <a key={ index } id={ index } onClick={ () => { handlePost(index) } }><img src={ post.file } alt="post-file" className="post-card" /></a>
-                        )
-                    })
-                    :
-                    <RingLoader color='#007BFF' />
+                        ?
+                        posts.map((post, index) => 
+                        {
+                            return (
+                                <a key={ index } id={ index } onClick={ () => { handlePost(index) } }><img src={ post.file } alt="post-file" className="post-card" /></a>
+                            )
+                        })
+                        :
+                        <RingLoader color='#007BFF' />
                 }
             </div>
         </>
     )
 }
 
-export default ProfilePage
+export default HomePage
