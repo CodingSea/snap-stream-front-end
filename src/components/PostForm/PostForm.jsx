@@ -35,7 +35,7 @@ function PostForm()
         {
             await createPost(formData);
 
-            navigate('/snap-stream')
+            navigate(-1)
         } catch (error)
         {
             console.log(error)

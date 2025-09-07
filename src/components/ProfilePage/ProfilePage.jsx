@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import SidePanel from '../SidePanel/SidePanel'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import "../../Main.css"
-import PostDetails from '../PostDetails/PostDetails'
-import { getPosts } from '../../../lib/postAPI'
+import { getProfile } from '../../../lib/postAPI';
+import { useNavigate, useParams } from 'react-router-dom';
 
-function SearchPage()
+function ProfilePage()
 {
     const navigate = useNavigate()
     const [posts, setPosts] = useState([{}])
+
+    const [user, setUser] = useState(
+        {
+            id: -1,
+            username: ""
+        }
+    )
+
+    const { id } = useParams();
 
     async function listPosts()
     {
         try
         {
-            const postsList = await getPosts();
+            const postsList = await getProfile(id);
             setPosts(postsList.data);
         }
         catch (error)
@@ -26,7 +31,26 @@ function SearchPage()
 
     function handlePost(index)
     {
-        navigate(`/search/post/${ index }`)
+        navigate(`/profile/${ id }/post/${ index }`)
+    }
+
+    async function getCurrentUser()
+    {
+        try
+        {
+            const res = await getUser()
+            const usr =
+            {
+                id: res.data.id,
+                username: res.data.username
+            }
+
+            setUser(usr);
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
     }
 
     useEffect(() =>
@@ -36,7 +60,7 @@ function SearchPage()
 
     return (
         <>
-            <h1>Search Page</h1>
+            <h1>Profile Page</h1>
             <button onClick={ () => { navigate('/post/new') } }>+</button>
 
             <div className='posts-container'>
@@ -49,9 +73,8 @@ function SearchPage()
                     })
                 }
             </div>
-
         </>
     )
 }
 
-export default SearchPage
+export default ProfilePage

@@ -54,22 +54,9 @@ function SidePanel({ token, handleLogout, setCurrentDisplay, DisplayType, user, 
                 <div className={ openPanel ? "panel-content open" : "panel-content" }>
                     { user ? <h2>{ user.username }</h2> : null }
 
-                    {
-                        window.location.href == `${ import.meta.env.VITE_FRONTEND_URL }/snap-stream`
-                            ?
-                            <>
-                                <button onClick={ () => { setCurrentDisplay(DisplayType.Home) } }>Home</button>
-                                <button onClick={ () => { setCurrentDisplay(DisplayType.Search) } }>Search</button>
-                                <button onClick={ () => { setCurrentDisplay(DisplayType.Profile) } }>Profile</button>
-                            </>
-                            :
-                            <>
-                                <button onClick={ () => { navigate("/snap-stream", { state: { displayType: "Home" } }) } }>Home</button>
-                                <button onClick={ () => { navigate("/snap-stream", { state: { displayType: "Search" } }) } }>Search</button>
-                                <button onClick={ () => { navigate("/snap-stream", { state: { displayType: "Profile" } }) } }>Profile</button>
-                            </>
-                    }
-
+                    <button onClick={ () => { navigate(`/home/${user.id}`) } }>Home</button>
+                    <button onClick={ () => { navigate(`/search`, { state: { displayType: "Search" } }) } }>Search</button>
+                    <button onClick={ () => { navigate(`/profile/${user.id}`)}}>Profile</button>
 
 
                     { token ? <LogoutButton onLogout={ handleLogout } /> : null }

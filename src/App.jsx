@@ -11,6 +11,8 @@ import PostForm from './components/PostForm/PostForm';
 import PostDetails from './components/PostDetails/PostDetails';
 import PostsDisplay from './components/PostsDisplay/PostsDisplay';
 import SidePanel from './components/SidePanel/SidePanel';
+import ProfilePage from './components/ProfilePage/ProfilePage';
+import { getUser } from '../lib/userAPI';
 
 function App()
 {
@@ -67,9 +69,16 @@ function App()
           <Route path="/login" element={ <LoginForm onLogin={ handleLogin } /> } />
           <Route path="/signup" element={ <SignupForm /> } />
 
-          <Route path='/snap-stream' element={
+          <Route path='/search' element={
             <ProtectedRoute>
-              <PostsDisplay token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              <SearchPage token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+            </ProtectedRoute> } />
+
+            <Route path='/profile/:id' element={
+            <ProtectedRoute>
+              <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              <ProfilePage token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
             </ProtectedRoute> } />
 
           <Route path='/post/new' element={
@@ -78,7 +87,13 @@ function App()
               <PostForm />
             </ProtectedRoute> } />
 
-          <Route path='/search/:pk' element={
+            <Route path='/:displayType/post/:postId' element={
+            <ProtectedRoute>
+              <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              <PostDetails user={ user } />
+            </ProtectedRoute> } />
+
+            <Route path='/:displayType/:id/post/:postId' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <PostDetails user={ user } />

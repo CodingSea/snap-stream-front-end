@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { href, useNavigate, useParams } from 'react-router-dom'
 import SidePanel from '../SidePanel/SidePanel';
-import { deletePost, getPosts, updatePost } from '../../../lib/postAPI';
+import { deletePost, getPosts, getProfile, updatePost } from '../../../lib/postAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
@@ -10,7 +10,7 @@ import { getUser } from '../../../lib/userAPI';
 
 function PostDetails()
 {
-    const { pk } = useParams();
+    const { id, postId, displayType } = useParams();
     const navigate = useNavigate()
     const [posts, setPosts] = useState([{}])
     const [selectedIndex, setSelectedIndex] = useState();
@@ -20,6 +20,7 @@ function PostDetails()
             username: ""
         }
     )
+    let [promises, setPromises] = useState(null);
 
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenEdit, setIsOpenEdit] = useState(false);
@@ -45,9 +46,21 @@ function PostDetails()
     {
         try
         {
-            const postsList = await getPosts();
-            setPosts(postsList.data);
-            setSelectedIndex(postsList.data.findIndex(p => p.id === parseInt(pk)));
+            if (displayType)
+            {
+                if (displayType == "search")
+                {
+                    const postsList = await getPosts();
+                    setPosts(postsList.data);
+                }
+                else if (displayType == "profile")
+                {
+                    const postsList = await getProfile(id);
+                    setPosts(postsList.data);
+                }
+            }
+
+            setSelectedIndex(postId);
         }
         catch (error)
         {
@@ -66,8 +79,6 @@ function PostDetails()
                 username: res.data.username
             }
 
-            console.log(usr)
-
             setUser(usr);
         }
         catch (error)
@@ -75,12 +86,6 @@ function PostDetails()
             console.log(error);
         }
     }
-
-    useEffect(() =>
-    {
-        listPosts();
-        getCurrentUser();
-    }, [])
 
     async function handleDeletePost(event, post)
     {
@@ -102,7 +107,11 @@ function PostDetails()
     {
         try
         {
+            event.preventDefault();
+
             await updatePost(formData.id, formData)
+
+            listPosts();
 
         } catch (error)
         {
@@ -125,22 +134,41 @@ function PostDetails()
         setFormData(p);
     }
 
+    useEffect(() =>
+    {
+        listPosts();
+        getCurrentUser();
+
+    }, [])
+
+    useEffect(() =>
+    {
+        const targetElement = document.getElementById(parseInt(postId));
+        if (targetElement)
+        {
+            targetElement.scrollIntoView();
+        }
+    }, [posts])
+
     return (
         <>
-            <button onClick={ () => { navigate(-1, { replace: true, state: { displayType: "dddd" } }) } }>Back</button>
+            <button onClick={ () => { navigate(-1, { replace: true, state: { displayType: "." } }) } }>Back</button>
 
             {
-                selectedIndex != undefined && user.id != -1 ?
-                    posts.slice(selectedIndex).map((post, index) => 
+                selectedIndex != undefined && user.id != -1
+                    ?
+                    posts.map((post, index) => 
                     {
                         return (
-                            <div key={ index }>
+                            <div key={ index } id={ index }>
                                 <div className='post-details'>
 
                                     <div style={ { display: "flex", justifyContent: "space-between", alignItems: "center" } }>
-                                        <a onClick={ () => { navigate(`/profile/${ post.user.id }`) } }><h2>{ posts[0].user.username }</h2></a>
+                                        <a onClick={ () => { navigate(`/profile/${ post.user.id }`, { replace: true, state: { displayType: "Profile" } }) } }>
+                                            <h2>{ posts[0].user.username }</h2>
+                                        </a>
 
-                                        
+
 
                                         {
                                             user.id == post.user.id
@@ -200,7 +228,7 @@ function PostDetails()
 
                                 </div>
                                 { post != posts.slice(selectedIndex).at(-1) ? <hr /> : null }
-                            </div>
+                            </div >
                         )
                     })
                     :
