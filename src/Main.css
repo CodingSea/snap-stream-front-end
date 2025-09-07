@@ -132,6 +132,14 @@
 
 }
 
+#back-btn
+{
+    position: fixed;
+    right: 1em;
+    top: 1em;
+
+}
+
 @media (prefers-color-scheme: light)
 {
     .panel

@@ -54,14 +54,16 @@ function SidePanel({ token, handleLogout, setCurrentDisplay, DisplayType, user, 
                 <div className={ openPanel ? "panel-content open" : "panel-content" }>
                     { user ? <h2>{ user.username }</h2> : null }
 
-                    <button onClick={ () => { navigate(`/home/${user.id}`) } }>Home</button>
+                    <button onClick={ () => { navigate(`/home/${ user.id }`) } }>Home</button>
                     <button onClick={ () => { navigate(`/search`, { state: { displayType: "Search" } }) } }>Search</button>
-                    <button onClick={ () => { navigate(`/profile/${user.id}`)}}>Profile</button>
+                    <button onClick={ () => { navigate(`/profile/${ user.id }`) } }>Profile</button>
 
 
                     { token ? <LogoutButton onLogout={ handleLogout } /> : null }
                 </div>
             </div>
+
+            <button onClick={ () => { navigate(-1) } } id='back-btn'>Back</button>
         </>
     )
 }

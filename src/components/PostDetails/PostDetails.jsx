@@ -152,8 +152,6 @@ function PostDetails()
 
     return (
         <>
-            <button onClick={ () => { navigate(-1, { replace: true, state: { displayType: "." } }) } }>Back</button>
-
             {
                 selectedIndex != undefined && user.id != -1
                     ?
