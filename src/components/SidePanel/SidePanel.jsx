@@ -24,7 +24,7 @@ function SidePanel({ token, handleLogout, setCurrentDisplay, DisplayType, user, 
             const res = await getUser()
             const usr =
             {
-                id: res.data.user_id,
+                id: res.data.id,
                 username: res.data.username
             }
 

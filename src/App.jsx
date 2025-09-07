@@ -33,11 +33,30 @@ function App()
     localStorage.removeItem('token')
   }
 
+  async function getCurrentUser()
+  {
+    try
+    {
+      const res = await getUser()
+      const usr =
+      {
+        id: res.data.id,
+        username: res.data.username
+      }
+
+      setUser(usr);
+    }
+    catch (error)
+    {
+      console.log(error);
+    }
+  }
+
   useEffect(() =>
   {
-    if (token)
+    if (user)
     {
-      
+      getCurrentUser();
     }
   }, [])
 
@@ -50,19 +69,19 @@ function App()
 
           <Route path='/snap-stream' element={
             <ProtectedRoute>
-              <PostsDisplay token={ token } handleLogout={ handleLogout } user={user} setUser={setUser} />
+              <PostsDisplay token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
             </ProtectedRoute> } />
 
           <Route path='/post/new' element={
             <ProtectedRoute>
-              <SidePanel token={ token } handleLogout={ handleLogout } user={user} setUser={setUser} />
+              <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <PostForm />
             </ProtectedRoute> } />
 
           <Route path='/search/:pk' element={
             <ProtectedRoute>
-              <SidePanel token={ token } handleLogout={ handleLogout } user={user} setUser={setUser} />
-              <PostDetails />
+              <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              <PostDetails user={ user } />
             </ProtectedRoute> } />
 
         </Routes>
