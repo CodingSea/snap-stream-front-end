@@ -57,7 +57,7 @@ function App()
 
   useEffect(() =>
   {
-    if (user)
+    if (user && token)
     {
       getCurrentUser();
     }

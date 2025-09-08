@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
+import { signupUser } from '../../../lib/userAPI'
 
 function SignupForm()
 {
@@ -23,12 +24,7 @@ function SignupForm()
         event.preventDefault()
         try
         {
-            await axios.post(`${ import.meta.env.VITE_BACKEND_URL }/signup/`, 
-                {
-                    username: formData.username,
-                    password: formData.password
-                }
-            )
+            await signupUser(formData);
 
             navigate('/login')
         } catch (error)
