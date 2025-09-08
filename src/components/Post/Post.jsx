@@ -9,7 +9,7 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
 {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenEdit, setIsOpenEdit] = useState(false);
-
+    const [isCalled, setIsCalled] = useState(false);
 
     const navigate = useNavigate()
     const [formData, setFormData] = useState(
@@ -52,8 +52,6 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
 
             await updatePost(formData.id, formData)
 
-            navigate(`/search/post/${ index }`)
-
             listPosts()
 
 
@@ -83,8 +81,6 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
         try
         {
             await likePost(post.id)
-            
-            navigate(`/search/post/${ index }`)
 
             listPosts();
 
@@ -97,10 +93,14 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
 
     useEffect(() =>
     {
-        const targetElement = document.getElementById(parseInt(postId));
-        if (targetElement)
+        if (isCalled == false)
         {
-            targetElement.scrollIntoView();
+            const targetElement = document.getElementById(parseInt(postId));
+            if (targetElement)
+            {
+                targetElement.scrollIntoView();
+            }
+            setIsCalled(true);
         }
     }, [posts])
 
@@ -161,13 +161,13 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
                     <div style={ { display: "flex", alignItems: "center" } }>
                         {
                             post.likes.some(u => u.id == user.id)
-                            ?
-                            <FontAwesomeIcon icon={ faHeart } color='red' className='icon' onClick={ () => { handleLike(post, index) } } />
-                            :
-                            <FontAwesomeIcon icon={ faHeart } className='icon' onClick={ () => { handleLike(post, index) } } />
+                                ?
+                                <FontAwesomeIcon icon={ faHeart } color='red' className='icon' onClick={ () => { handleLike(post, index) } } />
+                                :
+                                <FontAwesomeIcon icon={ faHeart } className='icon' onClick={ () => { handleLike(post, index) } } />
                         }
-                        
-                        <p>{post.likes.length}</p>
+
+                        <p>{ post.likes.length }</p>
                     </div>
                     <div style={ { display: "flex", alignItems: "center" } }>
                         <FontAwesomeIcon icon={ faComment } className='icon' />
