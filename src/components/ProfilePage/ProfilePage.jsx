@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { getProfile } from '../../../lib/postAPI';
+import { getFollowingPosts, getProfile } from '../../../lib/postAPI';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
-import { getUser } from '../../../lib/userAPI';
+import { followUser, getCurrentUser, getUser } from '../../../lib/userAPI';
 
 function ProfilePage()
 {
@@ -10,12 +10,7 @@ function ProfilePage()
     const [posts, setPosts] = useState([])
     const [userProfile, setUserProfile] = useState({});
 
-    const [user, setUser] = useState(
-        {
-            id: -1,
-            username: ""
-        }
-    )
+    const [user, setUser] = useState()
 
     const { id } = useParams();
 
@@ -45,7 +40,35 @@ function ProfilePage()
 
             setUserProfile(u.data);
         }
-        catch(error)
+        catch (error)
+        {
+            console.log(error);
+        }
+    }
+
+    async function handleFollow(event)
+    {
+        try
+        {
+            event.preventDefault();
+
+            await followUser(id);
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+    }
+
+    async function getCurrentLoggedInUser()
+    {
+        try
+        {
+            const res = await getCurrentUser()
+
+            setUser(res.data);
+        }
+        catch (error)
         {
             console.log(error);
         }
@@ -53,32 +76,27 @@ function ProfilePage()
 
     useEffect(() =>
     {
+        getCurrentLoggedInUser();
         listPosts();
         getUserProfile();
     }, [])
 
     return (
         <>
-            {
-                userProfile
-                ?
-                <h1>{userProfile.username}</h1>
-                :
-                null
-            }
+            
 
             <div className='posts-container'>
                 {
                     posts.length > 0
-                    ?
-                    posts.map((post, index) => 
-                    {
-                        return (
-                            <a key={ index } id={ index } onClick={ () => { handlePost(index) } }><img src={ post.file } alt="post-file" className="post-card" /></a>
-                        )
-                    })
-                    :
-                    <RingLoader color='#007BFF' />
+                        ?
+                        posts.map((post, index) => 
+                        {
+                            return (
+                                <a key={ index } id={ index } onClick={ () => { handlePost(index) } }><img src={ post.file } alt="post-file" className="post-card" /></a>
+                            )
+                        })
+                        :
+                        <RingLoader color='#007BFF' />
                 }
             </div>
         </>

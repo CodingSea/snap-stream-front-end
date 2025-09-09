@@ -110,7 +110,7 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
 
                 <div style={ { display: "flex", justifyContent: "space-between", alignItems: "center" } }>
                     <a onClick={ () => { navigate(`/profile/${ post.user.id }`, { replace: true, state: { displayType: "Profile" } }) } }>
-                        <h2>{ posts[0].user.username }</h2>
+                        <h2>{ post.user.username }</h2>
                     </a>
 
 

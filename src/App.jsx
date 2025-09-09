@@ -76,7 +76,7 @@ function App()
               <SearchPage />
             </ProtectedRoute> } />
 
-            <Route path='/:displayType/find/:searchText/' element={
+            <Route path='/:displayType/find/:searchText' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <SearchPage />
@@ -106,7 +106,7 @@ function App()
               <PostDetails user={ user } />
             </ProtectedRoute> } />
 
-            <Route path='/:displayType/find/:searchText/post/:postId/' element={
+            <Route path='/:displayType/find/:searchText/post/:postId' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <PostDetails user={ user } />
@@ -116,6 +116,12 @@ function App()
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <PostDetails user={ user } />
+            </ProtectedRoute> } />
+
+            <Route path='/home' element={
+            <ProtectedRoute>
+              <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              
             </ProtectedRoute> } />
 
         </Routes>

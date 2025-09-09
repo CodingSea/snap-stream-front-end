@@ -1,4 +1,5 @@
 import React from 'react'
+import { getFollowingPosts } from '../../../lib/postAPI';
 
 function HomePage()
 {
@@ -18,7 +19,7 @@ function HomePage()
     {
         try
         {
-            const postsList = await getProfile(id);
+            const postsList = await getFollowingPosts();
             setPosts(postsList.data);
         }
         catch (error)
