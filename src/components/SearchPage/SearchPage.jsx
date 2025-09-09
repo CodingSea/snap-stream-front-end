@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SidePanel from '../SidePanel/SidePanel'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import "../../Main.css"
 import PostDetails from '../PostDetails/PostDetails'
@@ -19,12 +19,23 @@ function SearchPage()
         }
     );
 
+    const { searchText } = useParams();
+
     async function listPosts()
     {
         try
         {
-            const postsList = await getPosts();
-            setPosts(postsList.data);
+            if (searchText)
+            {
+                formData.searchText = searchText;
+                const postsList = await searchPosts(formData.searchText);
+                setPosts(postsList.data);
+            }
+            else
+            {
+                const postsList = await getPosts();
+                setPosts(postsList.data);
+            }
         }
         catch (error)
         {
@@ -50,8 +61,16 @@ function SearchPage()
 
         try
         {
-            const postsList = await searchPosts(formData.searchText);
-            setPosts(postsList.data);
+            if (formData.searchText == "")
+            {
+                navigate(`/search/${ index }`)
+            }
+            else
+            {
+                navigate(`/search/find/${ formData.searchText }/`)
+                const postsList = await searchPosts(formData.searchText);
+                setPosts(postsList.data);
+            }
         }
         catch (error)
         {

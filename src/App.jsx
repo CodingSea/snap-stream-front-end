@@ -76,6 +76,12 @@ function App()
               <SearchPage />
             </ProtectedRoute> } />
 
+            <Route path='/:displayType/find/:searchText/' element={
+            <ProtectedRoute>
+              <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              <SearchPage />
+            </ProtectedRoute> } />
+
             <Route path='/profile/:id' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
