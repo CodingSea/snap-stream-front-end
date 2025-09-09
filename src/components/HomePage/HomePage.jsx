@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { getFollowingPosts } from '../../../lib/postAPI';
+import { useNavigate, useParams } from 'react-router-dom';
+import { RingLoader } from 'react-spinners';
 
 function HomePage()
 {

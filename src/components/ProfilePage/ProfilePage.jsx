@@ -103,7 +103,6 @@ function ProfilePage()
                     :
                     null
             }
-            <button onClick={ () => { console.log(user.followings[0]) } }>sss</button>
 
             <div className='posts-container'>
                 {
