@@ -53,6 +53,7 @@ function ProfilePage()
             event.preventDefault();
 
             await followUser(id);
+            await getCurrentLoggedInUser();
         }
         catch (error)
         {
@@ -83,7 +84,26 @@ function ProfilePage()
 
     return (
         <>
-            
+            {
+                userProfile && user
+                    ?
+                    <>
+                        <h1>{ userProfile.username }</h1>
+
+                        <form onSubmit={ handleFollow }>
+                            {
+                                user.followings.some(x => x == id)
+                                    ?
+                                    <button type='submit'>Unfollow</button>
+                                    :
+                                    <button type='submit'>Follow</button>
+                            }
+                        </form>
+                    </>
+                    :
+                    null
+            }
+            <button onClick={ () => { console.log(user.followings[0]) } }>sss</button>
 
             <div className='posts-container'>
                 {
