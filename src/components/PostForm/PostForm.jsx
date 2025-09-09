@@ -51,8 +51,6 @@ function PostForm()
 
     return (
         <>
-            <button onClick={ () => { navigate(-1) } }>Back</button>
-
             <form onSubmit={ handleSubmit }>
                 <h2>Sign Up</h2>
                 <label htmlFor="file">File: </label>

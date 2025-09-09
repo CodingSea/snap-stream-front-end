@@ -4,7 +4,7 @@ import LogoutButton from '../LogoutButton/LogoutButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { getUser } from '../../../lib/userAPI';
+import { getCurrentUser } from '../../../lib/userAPI';
 
 function SidePanel({ token, handleLogout, setCurrentDisplay, DisplayType, user, setUser })
 {
@@ -17,11 +17,11 @@ function SidePanel({ token, handleLogout, setCurrentDisplay, DisplayType, user, 
         setOpenPanel(!openPanel);
     }
 
-    async function getCurrentUser()
+    async function getCurrentLoggedInUser()
     {
         try
         {
-            const res = await getUser()
+            const res = await getCurrentUser()
             const usr =
             {
                 id: res.data.id,
@@ -40,7 +40,7 @@ function SidePanel({ token, handleLogout, setCurrentDisplay, DisplayType, user, 
     {
         if (user)
         {
-            getCurrentUser();
+            getCurrentLoggedInUser();
         }
     }, [])
 
@@ -64,6 +64,7 @@ function SidePanel({ token, handleLogout, setCurrentDisplay, DisplayType, user, 
             </div>
 
             <button onClick={ () => { navigate(-1) } } id='back-btn'>Back</button>
+            <button onClick={ () => { navigate('/post/new') } } id='create-btn'>+</button>
         </>
     )
 }

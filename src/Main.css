@@ -137,7 +137,17 @@
     position: fixed;
     right: 1em;
     top: 1em;
+    width: 5em;
+    height: 5em;
+}
 
+#create-btn
+{
+    position: fixed;
+    right: 1em;
+    top: 7em;
+    width: 5em;
+    height: 5em;
 }
 
 @media (prefers-color-scheme: light)

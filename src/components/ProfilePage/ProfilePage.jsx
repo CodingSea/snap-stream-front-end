@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { getProfile } from '../../../lib/postAPI';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
+import { getUser } from '../../../lib/userAPI';
 
 function ProfilePage()
 {
     const navigate = useNavigate()
     const [posts, setPosts] = useState([])
+    const [userProfile, setUserProfile] = useState({});
 
     const [user, setUser] = useState(
         {
@@ -35,15 +37,35 @@ function ProfilePage()
         navigate(`/profile/${ id }/post/${ index }`)
     }
 
+    async function getUserProfile()
+    {
+        try
+        {
+            const u = await getUser(id);
+
+            setUserProfile(u.data);
+        }
+        catch(error)
+        {
+            console.log(error);
+        }
+    }
+
     useEffect(() =>
     {
         listPosts();
+        getUserProfile();
     }, [])
 
     return (
         <>
-            <h1>Profile Page</h1>
-            <button onClick={ () => { navigate('/post/new') } }>+</button>
+            {
+                userProfile
+                ?
+                <h1>{userProfile.username}</h1>
+                :
+                null
+            }
 
             <div className='posts-container'>
                 {

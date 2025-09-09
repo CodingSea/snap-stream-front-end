@@ -6,7 +6,7 @@ import { deletePost, getPosts, getProfile, searchPosts, updatePost } from '../..
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
-import { getUser } from '../../../lib/userAPI';
+import { getCurrentUser } from '../../../lib/userAPI';
 import { RingLoader } from 'react-spinners';
 import Post from '../Post/Post';
 
@@ -69,11 +69,11 @@ function PostDetails()
         }
     }
 
-    async function getCurrentUser()
+    async function getCurrentLoggedInUser()
     {
         try
         {
-            const res = await getUser()
+            const res = await getCurrentUser()
             const usr =
             {
                 id: res.data.id,
@@ -92,7 +92,7 @@ function PostDetails()
     useEffect(() =>
     {
         listPosts();
-        getCurrentUser();
+        getCurrentLoggedInUser();
 
     }, [])
 

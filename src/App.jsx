@@ -12,7 +12,7 @@ import PostDetails from './components/PostDetails/PostDetails';
 import PostsDisplay from './components/PostsDisplay/PostsDisplay';
 import SidePanel from './components/SidePanel/SidePanel';
 import ProfilePage from './components/ProfilePage/ProfilePage';
-import { getUser } from '../lib/userAPI';
+import { getCurrentUser } from '../lib/userAPI';
 import HomePage from './components/HomePage/HomePage';
 
 function App()
@@ -36,11 +36,11 @@ function App()
     localStorage.removeItem('token')
   }
 
-  async function getCurrentUser()
+  async function getCurrentLoggedInUser()
   {
     try
     {
-      const res = await getUser()
+      const res = await getCurrentUser()
       const usr =
       {
         id: res.data.id,
@@ -59,7 +59,7 @@ function App()
   {
     if (user && token)
     {
-      getCurrentUser();
+      getCurrentLoggedInUser();
     }
   }, [])
 

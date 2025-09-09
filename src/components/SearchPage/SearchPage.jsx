@@ -74,8 +74,6 @@ function SearchPage()
                 <button type='submit'><FontAwesomeIcon icon={ faSearch } /></button>
             </form>
 
-            <button onClick={ () => { navigate('/post/new') } }>+</button>
-
             <div className='posts-container'>
                 {
                     posts.length > 0
