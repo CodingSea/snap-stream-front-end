@@ -100,6 +100,12 @@ function App()
               <PostDetails user={ user } />
             </ProtectedRoute> } />
 
+            <Route path='/:displayType/find/:searchText/post/:postId/' element={
+            <ProtectedRoute>
+              <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
+              <PostDetails user={ user } />
+            </ProtectedRoute> } />
+
             <Route path='/:displayType/:id/post/:postId' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />

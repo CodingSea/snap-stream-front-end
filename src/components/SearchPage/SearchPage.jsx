@@ -34,7 +34,14 @@ function SearchPage()
 
     function handlePost(index)
     {
-        navigate(`/search/post/${ index }`)
+        if (formData.searchText == "")
+        {
+            navigate(`/search/post/${ index }`)
+        }
+        else
+        {
+            navigate(`/search/find/${ formData.searchText }/post/${ index }`)
+        }
     }
 
     async function handleSearch(event)

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { href, useNavigate, useParams } from 'react-router-dom'
 import SidePanel from '../SidePanel/SidePanel';
-import { deletePost, getPosts, getProfile, updatePost } from '../../../lib/postAPI';
+import { deletePost, getPosts, getProfile, searchPosts, updatePost } from '../../../lib/postAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
@@ -12,7 +12,7 @@ import Post from '../Post/Post';
 
 function PostDetails()
 {
-    const { id, postId, displayType } = useParams();
+    const { id, postId, displayType, searchText } = useParams();
     const navigate = useNavigate()
     const [posts, setPosts] = useState([{}])
     const [selectedIndex, setSelectedIndex] = useState();
@@ -44,9 +44,14 @@ function PostDetails()
         {
             if (displayType)
             {
-                if (displayType == "search")
+                if (displayType == "search" && !searchText)
                 {
                     const postsList = await getPosts();
+                    setPosts(postsList.data);
+                }
+                else if (displayType == "search" && searchText)
+                {
+                    const postsList = await searchPosts(searchText);
                     setPosts(postsList.data);
                 }
                 else if (displayType == "profile")
