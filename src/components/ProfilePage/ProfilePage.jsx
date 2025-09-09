@@ -85,11 +85,20 @@ function ProfilePage()
     return (
         <>
             {
-                userProfile && user && user.id != userProfile.id
+                userProfile
+                ?
+                <>
+                    <h1>{ userProfile.username }</h1>
+                    <h3>Following: 000 | Followers: 000</h3>
+                </>
+                :
+                null
+            }
+
+            {
+                user && user.id != userProfile.id
                     ?
                     <>
-                        <h1>{ userProfile.username }</h1>
-
                         <form onSubmit={ handleFollow }>
                             {
                                 user.followings.some(x => x == id)
