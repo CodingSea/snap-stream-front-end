@@ -85,7 +85,7 @@ function ProfilePage()
     return (
         <>
             {
-                userProfile && user
+                userProfile && user && user.id != userProfile.id
                     ?
                     <>
                         <h1>{ userProfile.username }</h1>
