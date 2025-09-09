@@ -63,7 +63,9 @@ function SearchPage()
         {
             if (formData.searchText == "")
             {
-                navigate(`/search/${ index }`)
+                navigate(`/search`)
+                const postsList = await getPosts();
+                setPosts(postsList.data);
             }
             else
             {
