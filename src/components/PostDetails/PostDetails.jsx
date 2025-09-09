@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { href, useNavigate, useParams } from 'react-router-dom'
 import SidePanel from '../SidePanel/SidePanel';
-import { deletePost, getPosts, getProfile, searchPosts, updatePost } from '../../../lib/postAPI';
+import { deletePost, getFollowingPosts, getPosts, getProfile, searchPosts, updatePost } from '../../../lib/postAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
@@ -59,6 +59,11 @@ function PostDetails()
                     const postsList = await getProfile(id);
                     setPosts(postsList.data);
                 }
+                else if (displayType == "home")
+                {
+                    const postsList = await getFollowingPosts();
+                    setPosts(postsList.data);
+                }
             }
 
             setSelectedIndex(postId);
@@ -104,7 +109,7 @@ function PostDetails()
                     posts.map((post, index) => 
                     {
                         return (
-                            <Post post={ post } index={ index } key={ index } posts={posts} user={user} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} postId={postId} listPosts={listPosts} />
+                            <Post post={ post } index={ index } key={ index } posts={ posts } user={ user } selectedIndex={ selectedIndex } setSelectedIndex={ setSelectedIndex } postId={ postId } listPosts={ listPosts } />
                         )
                     })
                     :

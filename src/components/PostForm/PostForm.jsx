@@ -52,7 +52,7 @@ function PostForm()
     return (
         <>
             <form onSubmit={ handleSubmit }>
-                <h2>Sign Up</h2>
+                <h2>Make a New Post</h2>
                 <label htmlFor="file">File: </label>
                 <input
                     name='file'

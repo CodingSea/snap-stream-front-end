@@ -43,7 +43,6 @@ function HomePage()
     return (
         <>
             <h1>Home Page</h1>
-            <button onClick={ () => { navigate('/post/new') } }>+</button>
 
             <div className='posts-container'>
                 {
