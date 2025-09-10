@@ -2,7 +2,7 @@ import { faComment, faEllipsis, faHeart } from '@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
-import { likePost, updatePost } from '../../../lib/postAPI';
+import { getComments, likePost, updatePost } from '../../../lib/postAPI';
 import { useNavigate } from 'react-router'
 import CommentSection from '../CommentSection/CommentSection';
 
@@ -11,6 +11,7 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenEdit, setIsOpenEdit] = useState(false);
     const [isCalled, setIsCalled] = useState(false);
+    const [messages, setMessages] = useState([]);
 
     const navigate = useNavigate()
     const [formData, setFormData] = useState(
@@ -92,6 +93,19 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
         }
     }
 
+    async function getMessagesCount()
+    {
+        try
+        {
+            const c = await getComments(post.id)
+            setMessages(c.data);
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+    }
+
     useEffect(() =>
     {
         if (isCalled == false)
@@ -102,6 +116,7 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
                 targetElement.scrollIntoView();
             }
             setIsCalled(true);
+            getMessagesCount()
         }
     }, [posts])
 
@@ -173,7 +188,7 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
                         </div>
                         <div style={ { display: "flex", alignItems: "center" } }>
                             <FontAwesomeIcon icon={ faComment } className='icon' onClick={ () => { openCommentSection(post.id) } } />
-                            <p>000</p>
+                            <p>{ messages.length }</p>
                         </div>
                     </div>
                     <p>{ post.caption }</p>
