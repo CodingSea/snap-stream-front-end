@@ -88,8 +88,7 @@ function SearchPage()
     return (
         <>
 
-        <div className='background'></div>
-            <h1>Search Page</h1>
+            <div className='background'></div>
 
             <form onSubmit={ handleSearch } className='search-form'>
                 <input type="text" placeholder='Search' name="searchText" onChange={ (event) => setFormData({ ...formData, searchText: event.target.value }) } value={ formData.searchText } />

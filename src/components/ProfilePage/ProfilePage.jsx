@@ -126,6 +126,8 @@ function ProfilePage()
 
     return (
         <>
+            <div className='background'></div>
+
             {
                 userProfile
                     ?
