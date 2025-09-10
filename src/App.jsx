@@ -14,6 +14,7 @@ import SidePanel from './components/SidePanel/SidePanel';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import { getCurrentUser } from '../lib/userAPI';
 import HomePage from './components/HomePage/HomePage';
+import StartingNav from './components/StartingNav/StartingNav';
 
 function App()
 {
@@ -67,8 +68,18 @@ function App()
     <>
       <Router>
         <Routes>
-          <Route path="/login" element={ <LoginForm onLogin={ handleLogin } /> } />
-          <Route path="/signup" element={ <SignupForm /> } />
+          <Route path="/login" element={ 
+            <>
+              <StartingNav />
+              <LoginForm onLogin={ handleLogin } /> 
+            </>
+           } />
+          <Route path="/signup" element={ 
+            <>
+              <StartingNav />
+              <SignupForm />
+            </>
+           } />
 
           <Route path='/search' element={
             <ProtectedRoute>

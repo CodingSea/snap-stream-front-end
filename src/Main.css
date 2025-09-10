@@ -191,6 +191,13 @@ span
     height: 90%;
 }
 
+.start-nav
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 @media (prefers-color-scheme: light)
 {
     .panel
