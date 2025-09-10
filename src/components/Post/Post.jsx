@@ -2,7 +2,7 @@ import { faComment, faEllipsis, faHeart } from '@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
-import { getComments, likePost, updatePost } from '../../../lib/postAPI';
+import { deletePost, getComments, likePost, updatePost } from '../../../lib/postAPI';
 import { useNavigate } from 'react-router'
 import CommentSection from '../CommentSection/CommentSection';
 

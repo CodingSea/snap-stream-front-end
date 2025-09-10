@@ -58,6 +58,9 @@ function ProfilePage()
 
             await followUser(id);
             await getCurrentLoggedInUser();
+
+            getFollowingsCount();
+            getFollowersCount();
         }
         catch (error)
         {
