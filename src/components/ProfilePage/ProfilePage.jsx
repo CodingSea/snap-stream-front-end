@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getFollowingPosts, getProfile } from '../../../lib/postAPI';
+import { getFollowersNumber, getFollowingPosts, getFollowingsNumber, getProfile, getProfileFollowingsNumber } from '../../../lib/postAPI';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { followUser, getCurrentUser, getUser } from '../../../lib/userAPI';
@@ -14,6 +14,9 @@ function ProfilePage()
     const [user, setUser] = useState()
 
     const { id } = useParams();
+
+    const [followings, setFollowings] = useState([]);
+    const [followers, setFollowers] = useState([]);
 
     async function listPosts()
     {
@@ -67,8 +70,41 @@ function ProfilePage()
         try
         {
             const res = await getCurrentUser()
-
             setUser(res.data);
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+    }
+
+    async function getFollowingsCount()
+    {
+        try
+        {
+            if (!user || userProfile.id != user.id)
+            {
+                const res = await getProfileFollowingsNumber(id);
+                setFollowings(res.data);
+            }
+            else
+            {
+                const res = await getFollowingsNumber();
+                setFollowings(res.data);
+            }
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+    }
+
+    async function getFollowersCount()
+    {
+        try
+        {
+            const res = await getFollowersNumber(id);
+            setFollowers(res.data);
         }
         catch (error)
         {
@@ -79,21 +115,23 @@ function ProfilePage()
     useEffect(() =>
     {
         getCurrentLoggedInUser();
-        listPosts();
         getUserProfile();
+        listPosts();
+        getFollowingsCount();
+        getFollowersCount();
     }, [])
 
     return (
         <>
             {
                 userProfile
-                ?
-                <>
-                    <h1>{ userProfile.username }</h1>
-                    <h3>Following: 000 | Followers: 000</h3>
-                </>
-                :
-                null
+                    ?
+                    <>
+                        <h1>{ userProfile.username }</h1>
+                        <h3>Following: { followings.length } | Followers: { followers.length }</h3>
+                    </>
+                    :
+                    null
             }
 
             {
