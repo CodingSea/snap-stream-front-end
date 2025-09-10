@@ -116,7 +116,7 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
                 targetElement.scrollIntoView();
             }
             setIsCalled(true);
-            getMessagesCount()
+            getMessagesCount();
         }
     }, [posts])
 

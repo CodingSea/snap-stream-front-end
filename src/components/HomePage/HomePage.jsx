@@ -44,8 +44,6 @@ function HomePage()
         <>
             <div className='background'></div>
 
-            <h1>Home Page</h1>
-
             <div className='posts-container'>
                 {
                     posts.length > 0

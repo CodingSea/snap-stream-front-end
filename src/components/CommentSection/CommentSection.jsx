@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { commentOnPost, getComments } from '../../../lib/postAPI';
 
-function CommentSection({ postId, userId, isOpen, handleClickOutside, setIsOpen })
+function CommentSection({ postId, userId, isOpen, handleClickOutside, setIsOpen, listPosts })
 {
     const [formData, setFormData] = useState(
         {
@@ -40,7 +40,8 @@ function CommentSection({ postId, userId, isOpen, handleClickOutside, setIsOpen 
 
             await commentOnPost(formData);
 
-            getCommentList()
+            getCommentList();
+            await listPosts();
         }
         catch (error)
         {

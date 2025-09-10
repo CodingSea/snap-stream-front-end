@@ -126,7 +126,7 @@ function PostDetails()
                                 setSelectedIndex={ setSelectedIndex }
                                 postId={ postId }
                                 listPosts={ listPosts }
-                                openCommentSection={openCommentSection}
+                                openCommentSection={ openCommentSection }
                             />
                         )
                     })
@@ -134,7 +134,7 @@ function PostDetails()
                     <RingLoader color='#007BFF' />
             }
 
-            <CommentSection postId={ selectedPostId } userId={ user.id } isOpen={ isCommentOpen } setIsOpen={ setIsCommentOpen } handleClickOutside={ handleClickOutside } />
+            <CommentSection postId={ selectedPostId } userId={ user.id } isOpen={ isCommentOpen } setIsOpen={ setIsCommentOpen } handleClickOutside={ handleClickOutside } listPosts={ listPosts } />
         </>
     )
 }
