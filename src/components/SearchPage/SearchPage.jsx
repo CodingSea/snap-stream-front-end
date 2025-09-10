@@ -91,10 +91,9 @@ function SearchPage()
         <div className='background'></div>
             <h1>Search Page</h1>
 
-            <form onSubmit={ handleSearch }>
-                <input type="text" name="searchText" onChange={ (event) => setFormData({ ...formData, searchText: event.target.value }) } value={ formData.searchText } />
-
-                <button type='submit'><FontAwesomeIcon icon={ faSearch } /></button>
+            <form onSubmit={ handleSearch } className='search-form'>
+                <input type="text" placeholder='Search' name="searchText" onChange={ (event) => setFormData({ ...formData, searchText: event.target.value }) } value={ formData.searchText } />
+                <FontAwesomeIcon icon={ faSearch } id='search-icon' />
             </form>
 
             <div className='posts-container'>
