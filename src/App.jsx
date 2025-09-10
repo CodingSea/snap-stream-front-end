@@ -70,13 +70,11 @@ function App()
         <Routes>
           <Route path="/login" element={ 
             <>
-              <StartingNav />
               <LoginForm onLogin={ handleLogin } /> 
             </>
            } />
           <Route path="/signup" element={ 
             <>
-              <StartingNav />
               <SignupForm />
             </>
            } />

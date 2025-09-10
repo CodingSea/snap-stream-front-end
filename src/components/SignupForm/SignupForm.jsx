@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import axios from 'axios'
 import { signupUser } from '../../../lib/userAPI'
 
@@ -34,8 +34,11 @@ function SignupForm()
     }
 
     return (
-        <form onSubmit={ handleSubmit }>
-            <h2>Sign Up</h2>
+        <>
+            <div className='background'></div>
+
+            <form onSubmit={ handleSubmit } className='startForm'>
+            <h1>Sign Up</h1>
             <label htmlFor="username">Username: </label>
             <input 
                 name='username'
@@ -53,7 +56,9 @@ function SignupForm()
                 onChange={ handleChange }
             />
             <button type="submit">Sign Up</button>
+            <Link to={"/login"}><button className='Other'>Login</button></Link>
         </form>
+        </>
     )
 }
 export default SignupForm

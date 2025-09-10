@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../../../lib/userAPI';
+import "../../Login.css";
 
-const LoginPage = ({onLogin}) =>
+const LoginPage = ({ onLogin }) =>
 {
     const [credentials, setCredentials] = useState({
         username: '',
@@ -23,7 +24,7 @@ const LoginPage = ({onLogin}) =>
             onLogin(res.data.access);
             navigate('/search');
         }
-        catch(error)
+        catch (error)
         {
             console.log(error);
         }
@@ -32,37 +33,30 @@ const LoginPage = ({onLogin}) =>
 
     return (
         <>
-            
+            <div className='background'></div>
 
-            <h1>Login</h1>
+            <form onSubmit={ handleSubmit } className='startForm'>
+                <h1>Login</h1>
 
-            <form onSubmit={ handleSubmit }>
-                <div>
-                    <label>Username: </label>
-                    <input
-                        placeholder='Username'
-                        name='username'
-                        value={ credentials.username }
-                        onChange={ (e) => setCredentials({ ...credentials, username: e.target.value }) }
-                    />
-                </div>
+                <label>Username: </label>
+                <input
+                    placeholder='Username'
+                    name='username'
+                    value={ credentials.username }
+                    onChange={ (e) => setCredentials({ ...credentials, username: e.target.value }) }
+                />
 
-                <div>
-                    <label>Password: </label>
-                    <input
-                        placeholder='Password'
-                        name='password'
-                        type='password'
-                        value={ credentials.password }
-                        onChange={ (e) => setCredentials({ ...credentials, password: e.target.value }) }
-                    />
-                </div>
+                <label>Password: </label>
+                <input
+                    placeholder='Password'
+                    name='password'
+                    type='password'
+                    value={ credentials.password }
+                    onChange={ (e) => setCredentials({ ...credentials, password: e.target.value }) }
+                />
 
-                <br />
-
-                <div>
-                    <button type='submit'>Login</button>
-                </div>
+                <button type='submit'>Login</button>
+                <Link to={"/signup"}><button className='Other'>Sign Up</button></Link>
             </form>
         </>
     );
