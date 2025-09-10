@@ -57,13 +57,13 @@ function CommentSection({ postId, userId, isOpen, handleClickOutside, setIsOpen,
         formData.post = postId;
 
         getCommentList();
-    }, [postId])
+    }, [isOpen])
 
     return (
         <div id={ isOpen ? 'comment-section-open' : 'comment-section-closed' }>
 
             <div className='comment-list'>
-                <button onClick={ () => { setIsOpen(false); setComments([]) } }>Close</button>
+                <button onClick={ () => { setIsOpen(false);  setComments([]); postId=-1; } }>Close</button>
                 {
                     comments.length > 0
                         ?
@@ -72,14 +72,14 @@ function CommentSection({ postId, userId, isOpen, handleClickOutside, setIsOpen,
                                 comments.map((comment, index) =>
                                 {
                                     return (
-                                        <div key={ index }>
-                                            <p>Name: { comment.user.username }</p>
-                                            <p>{ comment.content }</p>
-                                            <p>
+                                        <div key={ index } className='comment'>
+                                            <div className='comment-header'>
+                                                <strong>Name: { comment.user.username }</strong>
                                                 <span>
                                                     { `${ new Date(comment.created_at).toLocaleDateString() } | ${ new Date(comment.created_at).toLocaleTimeString() }` }
                                                 </span>
-                                            </p>
+                                            </div>
+                                            <p>{ comment.content }</p>
                                         </div>
                                     )
                                 })

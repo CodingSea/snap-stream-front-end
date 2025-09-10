@@ -171,7 +171,7 @@ span
 #comment-section-open
 {
     position: fixed;
-    height: 400px;
+    height: 600px;
 
     background-color: #333;
     border-radius: 0.5em;
@@ -187,8 +187,59 @@ span
 
 .comment-list
 {
-    overflow-y: scroll;
+    padding: 10px;
     height: 90%;
+    overflow-y: auto;
+}
+
+.comment
+{
+    margin-bottom: 10px;
+    background-color: #646464;
+    padding: 0.2em 0.5em;
+    border-radius: 1em;
+}
+
+.comment p
+{
+    display: block;
+    text-align: start;
+}
+
+.comment-header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.comment strong
+{
+    color: #0bc90bce;
+}
+
+#comment-section-open form
+{
+    display: flex;
+}
+
+#comment-section-open button
+{
+    padding: 5px 10px;
+    background-color: #0bc90bce;
+    color: #121212;
+    border: none;
+    cursor: pointer;
+}
+
+input
+{
+    flex: 1;
+    padding: 5px;
+    border: none;
+    background-color: #2a2a2a;
+    color: #ffffff;
 }
 
 .start-nav
