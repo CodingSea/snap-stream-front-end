@@ -40,6 +40,14 @@ function CommentSection({ postId, userId, isOpen, handleClickOutside, setIsOpen,
 
             await commentOnPost(formData);
 
+            setFormData(
+                {
+                    content: '',
+                    user: -1,
+                    post: -1
+                }
+            )
+
             getCommentList();
             await listPosts();
         }
@@ -63,7 +71,7 @@ function CommentSection({ postId, userId, isOpen, handleClickOutside, setIsOpen,
         <div id={ isOpen ? 'comment-section-open' : 'comment-section-closed' }>
 
             <div className='comment-list'>
-                <button onClick={ () => { setIsOpen(false);  setComments([]); postId=-1; } }>Close</button>
+                <button onClick={ () => { setIsOpen(false); setComments([]); postId = -1; } }>Close</button>
                 {
                     comments.length > 0
                         ?
@@ -91,7 +99,7 @@ function CommentSection({ postId, userId, isOpen, handleClickOutside, setIsOpen,
             </div>
 
             <form onSubmit={ handleSubmitComment }>
-                <input type="text" name="content" placeholder='Add a comment...' onChange={ handleChange } />
+                <input type="text" name="content" placeholder='Add a comment...' onChange={ handleChange } value={ formData.content } />
                 <button type='submit'>Submit</button>
             </form>
         </div>
