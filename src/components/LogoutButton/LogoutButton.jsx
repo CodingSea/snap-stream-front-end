@@ -1,3 +1,5 @@
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -12,7 +14,7 @@ function LogoutButton({ onLogout })
     }
 
     return (
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout}><FontAwesomeIcon icon={faRightFromBracket} /> Logout</button>
     )
 }
 

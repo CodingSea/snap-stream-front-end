@@ -87,6 +87,8 @@ function SearchPage()
 
     return (
         <>
+
+        <div className='background'></div>
             <h1>Search Page</h1>
 
             <form onSubmit={ handleSearch }>

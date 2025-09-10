@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../../Main.css"
 import LogoutButton from '../LogoutButton/LogoutButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faArrowLeft, faHome, faMagnifyingGlass, faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentUser } from '../../../lib/userAPI';
 
@@ -54,17 +54,17 @@ function SidePanel({ token, handleLogout, setCurrentDisplay, DisplayType, user, 
                 <div className={ openPanel ? "panel-content open" : "panel-content" }>
                     { user ? <h2>{ user.username }</h2> : null }
 
-                    <button onClick={ () => { navigate(`/home/${ user.id }`) } }>Home</button>
-                    <button onClick={ () => { navigate(`/search`, { state: { displayType: "Search" } }) } }>Search</button>
-                    <button onClick={ () => { navigate(`/profile/${ user.id }`) } }>Profile</button>
+                    <button onClick={ () => { navigate(`/home/${ user.id }`) } }><FontAwesomeIcon icon={ faHome } /> Home</button>
+                    <button onClick={ () => { navigate(`/search`, { state: { displayType: "Search" } }) } }><FontAwesomeIcon icon={ faMagnifyingGlass } /> Search</button>
+                    <button onClick={ () => { navigate(`/profile/${ user.id }`) } }><FontAwesomeIcon icon={ faUser } /> Profile</button>
 
 
                     { token ? <LogoutButton onLogout={ handleLogout } /> : null }
                 </div>
             </div>
 
-            <button onClick={ () => { navigate(-1) } } id='back-btn'>Back</button>
-            <button onClick={ () => { navigate('/post/new') } } id='create-btn'>+</button>
+            <button onClick={ () => { navigate(-1) } } id='back-btn'><FontAwesomeIcon icon={ faArrowLeft } /></button>
+            <button onClick={ () => { navigate('/post/new') } } id='create-btn'><FontAwesomeIcon icon={ faPlus } /></button>
         </>
     )
 }
