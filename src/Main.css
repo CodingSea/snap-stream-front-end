@@ -101,7 +101,7 @@
     color: white;
 }
 
-.post-details span
+span
 {
     color: gray;
     font-size: small;
@@ -149,6 +149,28 @@
     top: 7em;
     width: 5em;
     height: 5em;
+}
+
+#comment-section
+{
+    position: fixed;
+    height: 400px;
+    
+    background-color: #333;
+    border-radius: 0.5em;
+    width: 40%;
+    top: 20%;
+    left: 50%;
+    text-align: center;
+    padding: 20px;
+    transform: translate(-50%, 0);
+    border: 1px solid white;
+}
+
+.comment-list
+{
+    overflow-y: scroll;
+    height: 90%;
 }
 
 @media (prefers-color-scheme: light)

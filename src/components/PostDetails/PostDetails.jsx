@@ -9,6 +9,7 @@ import Popup from 'reactjs-popup';
 import { getCurrentUser } from '../../../lib/userAPI';
 import { RingLoader } from 'react-spinners';
 import Post from '../Post/Post';
+import CommentSection from '../CommentSection/CommentSection';
 
 function PostDetails()
 {
@@ -22,19 +23,6 @@ function PostDetails()
             username: ""
         }
     )
-
-
-    const [formData, setFormData] = useState
-        (
-            {
-                id: -1,
-                caption: "",
-                file: "",
-                file_id: "",
-                user: -1,
-                created_at: ""
-            }
-        )
 
 
 
@@ -115,6 +103,8 @@ function PostDetails()
                     :
                     <RingLoader color='#007BFF' />
             }
+
+            <CommentSection postId={ 1 } userId={ user.id } />
         </>
     )
 }

@@ -3,6 +3,7 @@ import { getFollowingPosts, getProfile } from '../../../lib/postAPI';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { followUser, getCurrentUser, getUser } from '../../../lib/userAPI';
+import CommentSection from '../CommentSection/CommentSection';
 
 function ProfilePage()
 {
