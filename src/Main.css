@@ -151,7 +151,7 @@ span
     height: 5em;
 }
 
-#comment-section
+#comment-section-closed
 {
     position: fixed;
     height: 400px;
@@ -165,6 +165,24 @@ span
     padding: 20px;
     transform: translate(-50%, 0);
     border: 1px solid white;
+    display: none;
+}
+
+#comment-section-open
+{
+    position: fixed;
+    height: 400px;
+    
+    background-color: #333;
+    border-radius: 0.5em;
+    width: 40%;
+    top: 20%;
+    left: 50%;
+    text-align: center;
+    padding: 20px;
+    transform: translate(-50%, 0);
+    border: 1px solid white;
+    display: inline-block;
 }
 
 .comment-list

@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
 import { likePost, updatePost } from '../../../lib/postAPI';
 import { useNavigate } from 'react-router'
+import CommentSection from '../CommentSection/CommentSection';
 
-function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postId, listPosts })
+function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postId, listPosts, openCommentSection })
 {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenEdit, setIsOpenEdit] = useState(false);
@@ -105,82 +106,86 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
     }, [posts])
 
     return (
-        <div key={ index } id={ index }>
-            <div className='post-details'>
+        <>
+            <div key={ index } id={ index }>
+                <div className='post-details'>
 
-                <div style={ { display: "flex", justifyContent: "space-between", alignItems: "center" } }>
-                    <a onClick={ () => { navigate(`/profile/${ post.user.id }`, { replace: true, state: { displayType: "Profile" } }) } }>
-                        <h2>{ post.user.username }</h2>
-                    </a>
+                    <div style={ { display: "flex", justifyContent: "space-between", alignItems: "center" } }>
+                        <a onClick={ () => { navigate(`/profile/${ post.user.id }`, { replace: true, state: { displayType: "Profile" } }) } }>
+                            <h2>{ post.user.username }</h2>
+                        </a>
 
 
 
-                    {
-                        user.id == post.user.id
-                            ?
-                            <FontAwesomeIcon icon={ faEllipsis } style={ { fontSize: "2em" } } className='icon' onClick={ () => { selectPost(post);; setIsOpen(!isOpen) } } />
-                            :
-                            null
-                    }
-
-                    <Popup open={ isOpen } position={ 'center center' }>
-                        <div className='post-popup'>
-                            <p>Post Form</p>
-
-                            <button onClick={ () => { setIsOpenEdit(!isOpenEdit); setIsOpen(false); } }>Edit</button>
-
-                            <form onSubmit={ (event) => handleDeletePost(event, post) }>
-                                <button type='submit'>Delete</button>
-                            </form>
-                        </div>
-                    </Popup>
-
-                    <Popup open={ isOpenEdit } position={ "center center" }>
-                        <form onSubmit={ (event) => handleSubmit(event, index) }>
-                            <h2>Edit Post</h2>
-
-                            <label htmlFor="caption">Caption: </label>
-                            <textarea
-                                name='caption'
-                                placeholder="caption"
-                                value={ formData.caption }
-                                onChange={ handleChange }
-                            />
-
-                            <br />
-
-                            <button type="submit">Post</button>
-                        </form>
-                    </Popup>
-                </div>
-
-                <img src={ post.file } alt="post-file" />
-
-                <br />
-                <div style={ { display: "flex", gap: "1em" } }>
-                    <div style={ { display: "flex", alignItems: "center" } }>
                         {
-                            post.likes.some(u => u.id == user.id)
+                            user.id == post.user.id
                                 ?
-                                <FontAwesomeIcon icon={ faHeart } color='red' className='icon' onClick={ () => { handleLike(post, index) } } />
+                                <FontAwesomeIcon icon={ faEllipsis } style={ { fontSize: "2em" } } className='icon' onClick={ () => { selectPost(post);; setIsOpen(!isOpen) } } />
                                 :
-                                <FontAwesomeIcon icon={ faHeart } className='icon' onClick={ () => { handleLike(post, index) } } />
+                                null
                         }
 
-                        <p>{ post.likes.length }</p>
+                        <Popup open={ isOpen } position={ 'center center' }>
+                            <div className='post-popup'>
+                                <p>Post Form</p>
+
+                                <button onClick={ () => { setIsOpenEdit(!isOpenEdit); setIsOpen(false); } }>Edit</button>
+
+                                <form onSubmit={ (event) => handleDeletePost(event, post) }>
+                                    <button type='submit'>Delete</button>
+                                </form>
+                            </div>
+                        </Popup>
+
+                        <Popup open={ isOpenEdit } position={ "center center" }>
+                            <form onSubmit={ (event) => handleSubmit(event, index) }>
+                                <h2>Edit Post</h2>
+
+                                <label htmlFor="caption">Caption: </label>
+                                <textarea
+                                    name='caption'
+                                    placeholder="caption"
+                                    value={ formData.caption }
+                                    onChange={ handleChange }
+                                />
+
+                                <br />
+
+                                <button type="submit">Post</button>
+                            </form>
+                        </Popup>
                     </div>
-                    <div style={ { display: "flex", alignItems: "center" } }>
-                        <FontAwesomeIcon icon={ faComment } className='icon' />
-                        <p>000</p>
+
+                    <img src={ post.file } alt="post-file" />
+
+                    <br />
+                    <div style={ { display: "flex", gap: "1em" } }>
+                        <div style={ { display: "flex", alignItems: "center" } }>
+                            {
+                                post.likes.some(u => u.id == user.id)
+                                    ?
+                                    <FontAwesomeIcon icon={ faHeart } color='red' className='icon' onClick={ () => { handleLike(post, index) } } />
+                                    :
+                                    <FontAwesomeIcon icon={ faHeart } className='icon' onClick={ () => { handleLike(post, index) } } />
+                            }
+
+                            <p>{ post.likes.length }</p>
+                        </div>
+                        <div style={ { display: "flex", alignItems: "center" } }>
+                            <FontAwesomeIcon icon={ faComment } className='icon' onClick={ () => { openCommentSection(post.id) } } />
+                            <p>000</p>
+                        </div>
                     </div>
+                    <p>{ post.caption }</p>
+
+                    <p><span>{ `${ new Date(post.created_at).toLocaleDateString() } | ${ new Date(post.created_at).toLocaleTimeString() }` }</span></p>
+
                 </div>
-                <p>{ post.caption }</p>
+                { post != posts.slice(selectedIndex).at(-1) ? <hr /> : null }
+            </div >
 
-                <p><span>{ `${ new Date(post.created_at).toLocaleDateString() } | ${ new Date(post.created_at).toLocaleTimeString() }` }</span></p>
 
-            </div>
-            { post != posts.slice(selectedIndex).at(-1) ? <hr /> : null }
-        </div >
+        </>
     )
 }
 

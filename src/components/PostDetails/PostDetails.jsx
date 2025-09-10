@@ -24,7 +24,8 @@ function PostDetails()
         }
     )
 
-
+    const [isCommentOpen, setIsCommentOpen] = useState(false);
+    const [selectedPostId, setSelectedPostId] = useState(-1);
 
     async function listPosts()
     {
@@ -81,6 +82,24 @@ function PostDetails()
         }
     }
 
+    function openCommentSection(tempId)
+    {
+        setSelectedPostId(tempId);
+        setIsCommentOpen(true);
+    }
+
+    function handleClickOutside(e)
+    {
+        if (this.submitPopoverRef.contains(e.target))
+        {
+
+            return;
+        }
+
+        setIsCommentOpen(false);
+
+        this.handleClick();
+    }
 
     useEffect(() =>
     {
@@ -97,14 +116,25 @@ function PostDetails()
                     posts.map((post, index) => 
                     {
                         return (
-                            <Post post={ post } index={ index } key={ index } posts={ posts } user={ user } selectedIndex={ selectedIndex } setSelectedIndex={ setSelectedIndex } postId={ postId } listPosts={ listPosts } />
+                            <Post
+                                post={ post }
+                                index={ index }
+                                key={ index }
+                                posts={ posts }
+                                user={ user }
+                                selectedIndex={ selectedIndex }
+                                setSelectedIndex={ setSelectedIndex }
+                                postId={ postId }
+                                listPosts={ listPosts }
+                                openCommentSection={openCommentSection}
+                            />
                         )
                     })
                     :
                     <RingLoader color='#007BFF' />
             }
 
-            <CommentSection postId={ 1 } userId={ user.id } />
+            <CommentSection postId={ selectedPostId } userId={ user.id } isOpen={ isCommentOpen } setIsOpen={ setIsCommentOpen } handleClickOutside={ handleClickOutside } />
         </>
     )
 }

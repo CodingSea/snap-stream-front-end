@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { commentOnPost, getComments } from '../../../lib/postAPI';
 
-function CommentSection({ postId, userId })
+function CommentSection({ postId, userId, isOpen, handleClickOutside, setIsOpen })
 {
     const [formData, setFormData] = useState(
         {
@@ -18,7 +18,6 @@ function CommentSection({ postId, userId })
         try
         {
             const res = await getComments(postId);
-            console.log(res.data);
 
             setComments(res.data);
         }
@@ -51,36 +50,40 @@ function CommentSection({ postId, userId })
 
     useEffect(() =>
     {
-        console.log("userid", userId)
-        console.log("postId", postId)
+        if (postId == -1 || isOpen == false) return;
 
         formData.user = userId;
         formData.post = postId;
 
         getCommentList();
-    }, [])
+    }, [postId])
 
     return (
-        <div id='comment-section'>
+        <div id={ isOpen ? 'comment-section-open' : 'comment-section-closed' }>
 
             <div className='comment-list'>
+                <button onClick={ () => { setIsOpen(false); setComments([]) } }>Close</button>
                 {
                     comments.length > 0
                         ?
-                        comments.map((comment, index) =>
-                        {
-                            return (
-                                <div key={ index }>
-                                    <p>Name: { comment.user.username }</p>
-                                    <p>{ comment.content }</p>
-                                    <p>
-                                        <span>
-                                            { `${ new Date(comment.created_at).toLocaleDateString() } | ${ new Date(comment.created_at).toLocaleTimeString() }` }
-                                        </span>
-                                    </p>
-                                </div>
-                            )
-                        })
+                        <>
+                            {
+                                comments.map((comment, index) =>
+                                {
+                                    return (
+                                        <div key={ index }>
+                                            <p>Name: { comment.user.username }</p>
+                                            <p>{ comment.content }</p>
+                                            <p>
+                                                <span>
+                                                    { `${ new Date(comment.created_at).toLocaleDateString() } | ${ new Date(comment.created_at).toLocaleTimeString() }` }
+                                                </span>
+                                            </p>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </>
                         :
                         null
                 }
