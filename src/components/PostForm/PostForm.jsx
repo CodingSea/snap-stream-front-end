@@ -51,7 +51,9 @@ function PostForm()
 
     return (
         <>
-            <form onSubmit={ handleSubmit }>
+            <div className='background'></div>
+
+            <form onSubmit={ handleSubmit } className='create-form'>
                 <h2>Make a New Post</h2>
                 <label htmlFor="file">File: </label>
                 <input

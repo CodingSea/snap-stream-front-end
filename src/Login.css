@@ -80,7 +80,7 @@ body
     font-weight: 300;
 }
 
-.startForm button
+.startForm button:not(.Other)
 {
     margin-top: 50px;
     width: 100%;
@@ -96,5 +96,7 @@ body
 .Other
 {
     width: 80%;
-    background-color: #2c85df;
+    padding: 15px 0;
+    background-color: rgba(0, 255, 0, 0.5);
+    margin-top: 50px;
 }

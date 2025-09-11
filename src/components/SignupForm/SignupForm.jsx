@@ -56,7 +56,7 @@ function SignupForm()
                 onChange={ handleChange }
             />
             <button type="submit">Sign Up</button>
-            <Link to={"/login"}><button className='Other'>Login</button></Link>
+            <Link to={"/login"}><button className='Other'>Go to Login</button></Link>
         </form>
         </>
     )

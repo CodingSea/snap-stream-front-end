@@ -56,7 +56,7 @@ const LoginPage = ({ onLogin }) =>
                 />
 
                 <button type='submit'>Login</button>
-                <Link to={"/signup"}><button className='Other'>Sign Up</button></Link>
+                <Link to={"/signup"}><button className='Other'>Go to Sign Up</button></Link>
             </form>
         </>
     );

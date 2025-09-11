@@ -153,7 +153,7 @@ function Post({ post, index, posts, user, selectedIndex, setSelectedIndex, postI
                         </Popup>
 
                         <Popup open={ isOpenEdit } position={ "center center" }>
-                            <form onSubmit={ (event) => handleSubmit(event, index) }>
+                            <form onSubmit={ (event) => handleSubmit(event, index) } className='post-popup'>
                                 <h2>Edit Post</h2>
 
                                 <label htmlFor="caption">Caption: </label>
