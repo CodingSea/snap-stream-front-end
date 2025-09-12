@@ -6,7 +6,7 @@ import { deletePost, getFollowingPosts, getPosts, getProfile, searchPosts, updat
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Popup from 'reactjs-popup';
-import { getCurrentUser } from '../../../lib/userAPI';
+import { getCurrentUser } from '../../../lib/userApi';
 import { RingLoader } from 'react-spinners';
 import Post from '../Post/Post';
 import CommentSection from '../CommentSection/CommentSection';

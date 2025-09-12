@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser } from '../../../lib/userAPI';
+import { loginUser } from '../../../lib/userApi';
 import "../../Login.css";
 
 const LoginPage = ({ onLogin }) =>

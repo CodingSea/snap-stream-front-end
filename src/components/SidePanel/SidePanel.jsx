@@ -4,7 +4,7 @@ import LogoutButton from '../LogoutButton/LogoutButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faArrowLeft, faHome, faMagnifyingGlass, faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { getCurrentUser } from '../../../lib/userAPI';
+import { getCurrentUser } from '../../../lib/userApi';
 
 function SidePanel({ token, handleLogout, setCurrentDisplay, DisplayType, user, setUser })
 {

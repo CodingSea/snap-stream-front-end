@@ -12,7 +12,7 @@ import PostDetails from './components/PostDetails/PostDetails';
 import PostsDisplay from './components/PostsDisplay/PostsDisplay';
 import SidePanel from './components/SidePanel/SidePanel';
 import ProfilePage from './components/ProfilePage/ProfilePage';
-import { getCurrentUser } from '../lib/userAPI';
+import { getCurrentUser } from '../lib/userApi';
 import HomePage from './components/HomePage/HomePage';
 import StartingNav from './components/StartingNav/StartingNav';
 

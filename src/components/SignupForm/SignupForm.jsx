@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import axios from 'axios'
-import { signupUser } from '../../../lib/userAPI'
+import { signupUser } from '../../../lib/userApi'
 
 function SignupForm()
 {

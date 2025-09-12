@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getFollowersNumber, getFollowingPosts, getFollowingsNumber, getProfile, getProfileFollowingsNumber } from '../../../lib/postAPI';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
-import { followUser, getCurrentUser, getUser } from '../../../lib/userAPI';
+import { followUser, getCurrentUser, getUser } from '../../../lib/userApi';
 import CommentSection from '../CommentSection/CommentSection';
 
 function ProfilePage()
