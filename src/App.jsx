@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import LoginForm from "./components/LoginForm/LoginForm"
 import SignupForm from './components/SignupForm/SignupForm';
@@ -68,16 +68,17 @@ function App()
     <>
       <Router>
         <Routes>
-          <Route path="/login" element={ 
+          <Route path="/" element={ <Navigate to="/signup" replace /> }></Route>
+          <Route path="/login" element={
             <>
-              <LoginForm onLogin={ handleLogin } /> 
+              <LoginForm onLogin={ handleLogin } />
             </>
-           } />
-          <Route path="/signup" element={ 
+          } />
+          <Route path="/signup" element={
             <>
               <SignupForm />
             </>
-           } />
+          } />
 
           <Route path='/search' element={
             <ProtectedRoute>
@@ -85,19 +86,19 @@ function App()
               <SearchPage />
             </ProtectedRoute> } />
 
-            <Route path='/:displayType/find/:searchText' element={
+          <Route path='/:displayType/find/:searchText' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <SearchPage />
             </ProtectedRoute> } />
 
-            <Route path='/profile/:id' element={
+          <Route path='/profile/:id' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <ProfilePage />
             </ProtectedRoute> } />
 
-            <Route path='/home/:id' element={
+          <Route path='/home/:id' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <HomePage token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
@@ -109,28 +110,28 @@ function App()
               <PostForm />
             </ProtectedRoute> } />
 
-            <Route path='/:displayType/post/:postId' element={
+          <Route path='/:displayType/post/:postId' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <PostDetails user={ user } />
             </ProtectedRoute> } />
 
-            <Route path='/:displayType/find/:searchText/post/:postId' element={
+          <Route path='/:displayType/find/:searchText/post/:postId' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <PostDetails user={ user } />
             </ProtectedRoute> } />
 
-            <Route path='/:displayType/:id/post/:postId' element={
+          <Route path='/:displayType/:id/post/:postId' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
               <PostDetails user={ user } />
             </ProtectedRoute> } />
 
-            <Route path='/home' element={
+          <Route path='/home' element={
             <ProtectedRoute>
               <SidePanel token={ token } handleLogout={ handleLogout } user={ user } setUser={ setUser } />
-              
+
             </ProtectedRoute> } />
 
         </Routes>
