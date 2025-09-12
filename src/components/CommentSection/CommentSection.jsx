@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { commentOnPost, getComments } from '../../../lib/postAPI';
+import { commentOnPost, getComments } from '../../../lib/postApi';
 
 function CommentSection({ postId, userId, isOpen, handleClickOutside, setIsOpen, listPosts })
 {

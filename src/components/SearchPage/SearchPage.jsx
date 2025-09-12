@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import "../../Main.css"
 import PostDetails from '../PostDetails/PostDetails'
-import { getPosts, searchPosts } from '../../../lib/postAPI'
+import { getPosts, searchPosts } from '../../../lib/postApi'
 import { RingLoader } from 'react-spinners'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'

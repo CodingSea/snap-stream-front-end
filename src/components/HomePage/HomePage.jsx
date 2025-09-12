@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getFollowingPosts } from '../../../lib/postAPI';
+import { getFollowingPosts } from '../../../lib/postApi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 

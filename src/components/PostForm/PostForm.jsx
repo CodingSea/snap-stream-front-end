@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import SidePanel from '../SidePanel/SidePanel'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
-import { createPost } from '../../../lib/postAPI'
+import { createPost } from '../../../lib/postApi'
 
 function PostForm()
 {

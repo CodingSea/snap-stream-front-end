@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getFollowersNumber, getFollowingPosts, getFollowingsNumber, getProfile, getProfileFollowingsNumber } from '../../../lib/postAPI';
+import { getFollowersNumber, getFollowingPosts, getFollowingsNumber, getProfile, getProfileFollowingsNumber } from '../../../lib/postApi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { followUser, getCurrentUser, getUser } from '../../../lib/userApi';
