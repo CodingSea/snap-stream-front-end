@@ -17,6 +17,7 @@ The Backend of the project is in this link: <a href="https://github.com/CodingSe
 * JavaScript ES6
 * Git
 * dotenv
+* axios
 
 ## Wins and Blockers
 
